@@ -1,5 +1,4 @@
 """COLOR"""
-set shell=/bin/sh 
 filetype plugin indent on
 syntax on
 syntax enable
@@ -9,23 +8,21 @@ colorscheme PaperColor
 
 packadd! matchit
 call plug#begin()
-Plug 'thalesmello/vim-textobj-multiline-str'
-Plug 'tpope/vim-unimpaired'
 Plug 'etdev/vim-hexcolor'
 Plug 'Stautob/vim-fish'
 Plug 'kana/vim-textobj-user'
 Plug 'bps/vim-textobj-python' "af, ac
+Plug 'thalesmello/vim-textobj-multiline-str' "aQ
 Plug 'beloglazov/vim-textobj-quotes' "aq
 Plug 'sgur/vim-textobj-parameter' "a,
 Plug 'kana/vim-textobj-entire' "ae
 Plug 'Julian/vim-textobj-variable-segment' "av
 
-Plug 'sillybun/vim-repl'
 " Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips',
-Plug 'KeitaNakamura/tex-conceal.vim'
-Plug 'lervag/vimtex'
-Plug 'mhinz/neovim-remote'
+Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
+Plug 'lervag/vimtex', {'for': 'tex'}
+Plug 'mhinz/neovim-remote', {'for': 'tex'}
 
 Plug 'voldikss/vim-floaterm'
 Plug 'rhysd/git-messenger.vim'
@@ -34,8 +31,7 @@ Plug 'Shougo/echodoc.vim'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'junegunn/goyo.vim'
-Plug 'autozimu/LanguageClient-neovim', {'branch':'next', 'do': 'bash install.sh',}
-" Plug 'ptzz/lf.vim'
+" Plug 'autozimu/LanguageClient-neovim', {'branch':'next', 'do': 'bash install.sh',}
 " Plug 'ncm2/ncm2'
 " Plug 'ncm2/ncm2-bufword'
 " Plug 'ncm2/ncm2-jedi'
@@ -44,7 +40,6 @@ Plug 'autozimu/LanguageClient-neovim', {'branch':'next', 'do': 'bash install.sh'
 Plug 'kassio/neoterm'
 Plug 'roxma/nvim-yarp'
 Plug 'felixhummel/setcolors.vim'
-Plug 'mgedmin/taghelper.vim'
 Plug 'mbbill/undotree'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -52,14 +47,17 @@ Plug 'tell-k/vim-autopep8'
 Plug 'tpope/vim-commentary'
 Plug 'Konfekt/vim-CtrlXA'
 Plug 'tpope/vim-fugitive'
-" Plug 'frazrepo/vim-rainbow'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-Plug 'fs111/pydoc.vim'
+Plug 'fs111/pydoc.vim', {'for': 'python'}
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'rstacruz/vim-coc-settings'
+" utiles pero no da usarlos todo el tiempo
+" Plug 'tpope/vim-unimpaired'
+" Plug 'frazrepo/vim-rainbow'
+" Plug 'tweekmonster/startuptime.vim'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'rstacruz/vim-coc-settings'
 call plug#end()
 
 """""SETTINGS"""""
@@ -94,7 +92,6 @@ call textobj#user#map('multilinestr', {
 \     'select-i': 'iQ',
 \   }
 \ })
-
 let g:textobj_multilinestr_no_default_key_mappings = 1
 
 let g:UltiSnipsExpandTrigger = '<tab>'
@@ -196,13 +193,6 @@ nmap <silent><S-Right> :vertical resize +3<cr>
 nmap <silent><S-Left> :vertical resize -3<cr>
 nmap <silent><S-Down> :resize +3<cr>
 nmap <silent><S-Up> :resize -3<cr>
-
-" Cycle quickfix
-" nnoremap <silent><Leader>]c :cnext<CR>
-" nnoremap <silent><Leader>[c :cprev<CR>
-" Cycle through buffers
-" nnoremap <silent>[b :bprevious<CR>
-" nnoremap <silent>]b :bnext<CR>
 
 nnoremap <Leader><Leader> <C-^>
 nnoremap <silent><Leader>b :b <C-d>
@@ -330,7 +320,7 @@ function! SynGroup()
     let l:s = synID(line('.'), col('.'), 1)                                       
     echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
 endfun
-
+"dice a que syntax group pertenece la palabra bajo el cursor
 nnoremap <silent> <leader>h :call SynGroup()<CR>
 
 
@@ -346,15 +336,10 @@ autocmd Filetype markdown, tex inoremap . .<c-g>u
 autocmd Filetype markdown inoremap ¿ `
 autocmd Filetype markdown map <F5> :!clear<CR><CR> :w<bar>!pandoc <C-r>% --pdf-engine=pdflatex -o %:r.pdf --variable urlcolor=blue -V geometry:margin=1in<CR>
 " autocmd Filetype markdown,tex map <F5> :!clear<CR><CR> :w<bar>!pandoc <C-r>% --pdf-engine=pdflatex -o %:p:h/pdf/%:r.pdf --variable urlcolor=blue -V geometry:margin=1in<CR>
-" autocmd Filetype tex map <leader>i :w<bar>!pdflatex -interaction=batchmode % | clear 
-" autocmd Filetype tex map <leader>r :
-" autocmd Filetype tex map <leader>i :!clear <CR><CR> :w<bar>!pdflatex -interaction=batchmode %
-"
 
 autocmd BufNewFile,BufReadPost *.pmd set filetype=pweave syntax=pweave
 autocmd Filetype pweave map <F5> :w <bar>:!pweave -o %:r.md -f markdown %<CR>:!pandoc <C-r> %:r.md --pdf-engine=pdflatex -o  %:p:h/pdf/%:r.pdf<CR>
 
-autocmd! BufWritePost _vimrc source %
 
 
 "activa rainbow brakets para todo salvo help y neoterm
@@ -368,30 +353,6 @@ let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
-"
-" " unicode symbols
-" let g:airline_left_sep = '»'
-" let g:airline_left_sep = '▶'
-" let g:airline_right_sep = '«'
-" let g:airline_right_sep = '◀'
-" let g:airline_symbols.linenr = '␊'
-" let g:airline_symbols.linenr = '␤'
-" let g:airline_symbols.linenr = '¶'
-" let g:airline_symbols.branch = '⎇'
-" let g:airline_symbols.paste = 'ρ'
-" let g:airline_symbols.paste = 'Þ'
-" let g:airline_symbols.paste = '∥'
-" let g:airline_symbols.whitespace = 'Ξ'
-
-" " airline symbols
-" let g:airline_left_sep = ''
-" let g:airline_left_alt_sep = ''
-" let g:airline_right_sep = ''
-" let g:airline_right_alt_sep = ''
-" let g:airline_symbols.branch = ''
-" let g:airline_symbols.readonly = ''
-" let g:airline_symbols.linenr = '☰'
-" let g:airline_section_x = '%{taghelper#curtag()}'
 let g:airline_section_y = ''
 let g:airline_section_z = 'ln %l/%L   %{strftime("%H:%M")}'
 let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
@@ -404,3 +365,24 @@ augroup line_return
         \     execute 'normal! g`"zvzz' |
         \ endif
 augroup END
+
+function! Do_math()
+    " evalua una expresion a la izquierda de un =,
+    " y pone el resultado a la derecha
+    " sin(0) +123.3- 2^3+cos(22*pi/180) = 116.227184
+    let cursor = getcurpos()
+    let expr = substitute(getline("."), "=", "", "")
+    let result = system("mat '" . expr . "'")[:-2]
+    call append(".", result)
+    normal! J
+    call setpos('.', cursor)
+endfunction
+nnoremap <silent><leader>v :call Do_math()<CR>
+
+function! Go_to_plugin_url()
+    let plug = matchstr(getline('.'), "'\\zs[^']\\+\\ze'")
+    call netrw#BrowseX('https://github.com/' . plug, netrw#CheckIfRemote())
+endfunction
+
+autocmd! BufWritePost $MYVIMRC source %
+au Bufread $MYVIMRC nnoremap <buffer> gx :call Go_to_plugin_url()<CR>
