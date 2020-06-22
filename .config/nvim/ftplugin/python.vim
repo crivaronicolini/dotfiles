@@ -1,3 +1,7 @@
+let g:kite_auto_complete=1
+let g:kite_tab_complete=1
+
+
 let g:pydoc_open_cmd = 'vsplit'
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'floating'
@@ -36,6 +40,15 @@ nnoremap <Leader>v :call Go_pdb()<cr>
 map <silent> <F5> :w <bar> AsyncRun python3 %<CR>
 nmap <silent> <leader>rr :Semshi rename<CR>
 
+nnoremap <leader>m :call Unmake_block()<CR>
+xnoremap <leader>m :<c-u>call Make_block()<CR>
+
+" functions
+nmap <silent> <leader>e :Semshi goto error<CR>
+nmap <silent> ]f :Semshi goto function next<CR>
+nmap <silent> [f :Semshi goto function prev<CR>
+
+
 call textobj#user#plugin('blocko',{
         \   'block':{
         \        '*sfile*': expand('<sfile>:p'),
@@ -48,9 +61,7 @@ function! s:select_a()
     let search = @/
     execute "normal! /# %%\<CR>"
     let end_pos = getpos('.')
-
     normal! N
-
     let start_pos = getpos('.')
 
     let @/ = search
@@ -61,11 +72,8 @@ function! s:select_i()
     let search = @/
     execute "normal! /# %%\<CR>k"
     let end_pos = getpos('.')
-
     normal! Nj
-
     let start_pos = getpos('.')
-
     let @/ = search
     return ['V', start_pos, end_pos]
 endfunction
@@ -97,7 +105,6 @@ function! Make_block() abort
     call append(line("'<")-1, white)
     call append(line("'>"), white)
 endfunction
-xnoremap <leader>m :<c-u>call Make_block()<CR>
 
 function! Unmake_block()
     let l:cursor = getcurpos()
@@ -107,7 +114,6 @@ function! Unmake_block()
     call setpos('.', cursor)
     keepjumps normal k
 endfunction
-nnoremap <leader>m :call Unmake_block()<CR>
 
 function! Send_cell()
     let search = @/

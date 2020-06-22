@@ -74,7 +74,7 @@ function fish_prompt
 
     echo -n -s $cwd $repo_info $normal $arrow ' '
 
-    set lista "nvim" "lfcd" "l" "less" "zoom" "calc" "sudo"
+    set lista "ef" "en" "el" "nvim" "lfcd" "l" "less" "zoom" "calc" "sudo"
     set otra (string split ' ' $history[1])
     if test $CMD_DURATION  
         if test $CMD_DURATION -gt (math "1000 * 10")
