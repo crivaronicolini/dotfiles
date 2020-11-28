@@ -74,25 +74,42 @@ function fish_prompt
 
     echo -n -s $cwd $repo_info $normal $arrow ' '
 
-    set lista "ef" "en" "el" "nvim" "lfcd" "l" "less" "zoom" "calc" "sudo"
+    set lista "htop" "ef" "en" "el" "nvim" "lfcd" "l" "less" "zoom" "calc" "sc" "sd" "qalc"
     set otra (string split ' ' $history[1])
-    if test $CMD_DURATION  
-        if test $CMD_DURATION -gt (math "1000 * 10")
-            for i in $otra 
-                if contains -- $i $lista
-                   break
-                else 
-                   set secs (math "$CMD_DURATION / 1000")
-                   notify-send "$history[1]" "devolvio $status, le llevó $secs segundos"
-                   set -u CMD_DURATION 0
-                end
+    set -l hacer true
+    if test $CMD_DURATION -gt (math "1000 * 10")
+        for i in $otra 
+            if contains -- $i $lista
+                set hacer false
+                break
             end
         end
+        if $hacer
+            set secs (math --scale=1  "$CMD_DURATION / 1000")
+            if test $secs -gt 3600
+                    set hrs (math --scale=1  "$secs / 3600")
+                    notify-send "$history[1]" "le llevó $hrs horas"
+            else if test $secs -ge 60
+                    set mins (math --scale=1 "$secs / 60")
+                    notify-send "$history[1]" "llevó $mins minutos"
+            else if test $secs -lt 60
+                    notify-send "$history[1]" "llevó $secs segundos"
+            end
+        set -u CMD_DURATION 0
+        end
     end
-
 end
-# if test ! "( contains $history[1] $lista )"
-#     echo "no"
-# else
-#     echo "si"
-# end
+        # if $hacer
+        #    set secs (math "$CMD_DURATION / 1000")
+        #    if test $secs -gt 60
+        #        set mins (math "$secs / 60")
+        #        if test $mins -gt 60
+        #            set hrs (math "$secs / 60")
+        #            notify-send "$history[1]" "devolvio $status, le llevó $hrs horas"
+        #        end
+        #        notify-send "$history[1]" "devolvio $status, le llevó $mins minutos"
+        #        break
+        #    end
+        #    notify-send "$history[1]" "devolvio $status, le llevó $secs segundos"
+        #    set -u CMD_DURATION 0
+        # end

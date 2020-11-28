@@ -1,0 +1,1 @@
+rsync -aPvh --exclude-from=exclude {./documents, ./bin, ./Desktop, ./pictures,./.config/coc,  ./.config/lf, ./.config/nvim, ./.config/fish} /media/marco/External1_RC/home/marco20/

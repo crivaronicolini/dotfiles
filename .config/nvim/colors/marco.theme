@@ -1,0 +1,22 @@
+
+Description = "marco"
+
+Default	= { Colour="#d0d0d0" }
+Canvas	= { Colour="#d0d0d0" }
+Number	= { Colour="#af005f" }
+Escape	= { Colour="#d7af5f" }
+String	= { Colour="#d7af00" }
+BlockComment	= { Colour="#d7875f" }
+StringPreProc = String
+LineComment   = { Colour="#808080" }
+Operator      = { Colour="#af87d7" }
+LineNum      = BlockComment
+PreProcessor      = Default
+Interpolation  =  { Colour="#DB4CA7" }
+
+Keywords = {
+  { Colour="#87d700" , Bold=true},
+  { Colour="#ff5faf" },
+  { Colour="#00875f" },
+  { Colour="#5fafd7", Bold=true },
+}

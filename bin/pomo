@@ -1,0 +1,122 @@
+#!/home/marco/repos/miniconda3/bin/python3
+# vim: set filetype=python:
+import subprocess
+import time
+from tqdm import tqdm
+import sys
+arg = sys.argv if sys.argv else ''
+
+
+# def timer(secs, name):
+#     # if secs == '':
+#     #     print('Usage:\n$ timer <time> <unit>\n<unit> can be m minutes, h hours. Defaults to seconds')
+#     #     sys.exit(0)
+#     # if arg:
+#     #     if arg == ['m']:
+#     #         mod = 60
+#     #     elif arg == ['h']:
+#     #         mod = 3600
+#     #     timer = int(secs) * mod
+#     # else:
+#     #     timer = int(secs)
+#     #     arg = ['s']
+#     mins = secs * 60
+#     # pbar = tqdm(range(mins),initial=0, ncols=30, bar_format='{elapsed} {bar} {desc}')
+#     def coso(ini):
+#         pbar = tqdm(range(mins),initial=ini, ncols=30, bar_format='{elapsed} {bar} {desc}')
+#         for i in pbar:
+#             pbar.set_description_str(f' {secs} m {name}')
+#             time.sleep(1)
+#     try:
+#         coso(0)
+#     except KeyboardInterrupt:
+#         stop = time.time()
+#         ans = input('\npausaste el timer, continuar [C]? salir [s]?\n')
+#         if ans == 's':
+#             print('\nchau!')
+#             sys.exit(0)
+
+    # for i in pbar:
+    #     try:
+            # pbar.set_description_str(f' {secs} m {name}')
+            # time.sleep(1)
+        # except KeyboardInterrupt:
+        #     ans = input('\npausaste el timer, continuar [C]? salir [s]?\n')
+        #     if ans == 's':
+        #         pbar.close()
+        #         print('\nchau!')
+        #         sys.exit(0)
+        #     continue
+emojis = {'pomo': '📖', 'brek':'🕺', 'breklargo':'🛌'}
+emojinot = {'pomo': '🎉', 'brek':'😤', 'breklargo':'😡'}
+def tomato(minutes, tipo):
+    start_time = time.perf_counter()
+    pause_durr= 0
+    pause= False
+    ini=0
+    duration = min(minutes, 25)
+    # pbar = tqdm(range(minutes),initial=ini, ncols=30, bar_format='{elapsed} {bar} {desc}')
+    while True:
+        try:
+            # if pause:
+            #     start_time = time.perf_counter()
+            #     pause = False
+            curr = time.perf_counter() 
+            # print(pause_durr)
+            diff_seconds = int(round(curr- start_time-pause_durr))
+            left_seconds = minutes * 60 - diff_seconds 
+            if left_seconds < 0:
+                print('')
+                break
+
+            countdown = '{}:{} {}'.format(int(left_seconds / 60), str(int(left_seconds % 60)).rjust(2,'0'), emojis[tipo])
+            progressbar(diff_seconds, minutes * 60, duration, countdown)
+            # pbar.set_description_str(f' {left_seconds} m {notify_msg}')
+            time.sleep(1)
+        except KeyboardInterrupt:
+            ans = input('\npausaste el timer, continuar [C]? salir [s]?\n')
+            if ans == 's':
+                print('chau!')
+                sys.exit(0)
+            pause_durr = pause_durr + int(round(time.perf_counter() - curr))
+            continue
+
+    notify_me(tipo)
+
+
+def notify_me(tipo):
+    subprocess.Popen(['notify-send', emojinot[tipo] + ' we', f'termino el {tipo}'])
+    subprocess.Popen(['bell'])
+
+def progressbar(curr, total, duration=10, extra=''):
+    frac = curr / total
+    filled = round(frac * duration)
+    print('\r', '🍅' * filled + '··' * (duration - filled), '[{:.0%}]'.format(frac), extra, end='')
+
+mpomo = 25
+mbrek = 5
+mbreklargo = 15
+
+if 'custom' in arg:
+    mpomo = int(input('pomo?: '))
+    mbrek = int(input('brek?: '))
+    mbreklargo = int(input('breklargo?: '))
+
+
+while True:
+    tomato(mpomo, 'pomo')
+    tomato(mbrek, 'brek')
+    tomato(mpomo, 'pomo')
+    tomato(mbrek, 'brek')
+    tomato(mpomo, 'pomo')
+    tomato(mbrek, 'brek')
+    tomato(mpomo, 'pomo')
+    tomato(mbreklargo, 'breklargo')
+
+# try:
+#     for i in pbar:
+#         time.sleep(1)
+#         pbar.set_description_str(f' {secs}{arg[0]}')
+# except KeyboardInterrupt:
+#     print('\nchau!')
+#     sys.exit(0)

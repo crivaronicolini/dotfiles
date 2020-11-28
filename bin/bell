@@ -1,0 +1,3 @@
+#!/bin/sh
+cvlc --play-and-exit ~/.vim/success_asyncrun.mp3 2>/dev/null
+

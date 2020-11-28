@@ -1,3 +1,4 @@
 #!/usr/bin/fish
+# vim: set filetype=fish:
 math $argv
 
