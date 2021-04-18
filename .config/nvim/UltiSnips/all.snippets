@@ -10,7 +10,7 @@ priority -60
 # NICE BOXES #
 ##############
 global !p
-# from vimsnippets import foldmarker, make_box, get_comment_format
+from vimsnippets import foldmarker, make_box, get_comment_format
 LOREM = """
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod \
 tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At \
@@ -95,9 +95,9 @@ snippet fechora "YYYY-MM-DD hh:mm" w
 `!v strftime("%d/%m/%Y %H:%M")`
 endsnippet
 
-# snippet todo "TODO comment" bw
-# `!p snip.rv=get_comment_format()[0]` ${2:TODO}: $0${3: <${4:`!v strftime('%d-%m-%y')`}${5:, `!v g:snips_author`}>} `!p snip.rv=get_comment_format()[2]`
-# endsnippet
+snippet todo "TODO comment" bw
+`!p snip.rv=get_comment_format()[0]` ${2:TODO}: $0${3: <${4:`!v strftime('%d-%m-%y')`}${5:, `!v g:snips_author`}>} `!p snip.rv=get_comment_format()[2]`
+endsnippet
 
 ##########
 #  Misc  #

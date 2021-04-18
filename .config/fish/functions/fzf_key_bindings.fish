@@ -63,8 +63,7 @@ function fzf_key_bindings
     set -l fzf_query $commandline[2]
 
     set -q FZF_ALT_C_COMMAND; or set -l FZF_ALT_C_COMMAND "
-    command find -L \$dir -mindepth 1 \\( -path \$dir'*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -path '~/go/pkg' -o -path '~/snap' -o -path '~/go/src' \\) -prune \
-    -o -type d -print| sed 's@^\./@@'"
+    command find \$dir -mindepth 1 \\( -path \$dir'*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -path './go/pkg' -o -path './snap' -o -path './go/src'  -o -path './repos' \\) -prune -o -type d -print | sed 's@^\./@@'"
     # -o -type d -print 2> /dev/null | sed 's@^\./@@'"
     set -q FZF_TMUX_HEIGHT; or set FZF_TMUX_HEIGHT 40%
     begin

@@ -1,0 +1,69 @@
+#!/home/marco/repos/miniconda3/bin/python3
+# vim: set filetype=python:
+import subprocess
+import time
+from tqdm import tqdm
+import sys
+
+
+def setup(opciones=None):
+    if not opciones:
+        _, mins, *arg = sys.argv
+    else:
+        mins, *arg = opciones.split()
+    if mins == '':
+        print('Usage:\n$ timer <time> <unit>\n<unit> can be s seconds, h hours. Defaults to minutes')
+        sys.exit(0)
+    if arg:
+        if arg == ['s']:
+            mod = 1/60
+        elif arg == ['h']:
+            mod = 3600
+        timer = int(mins) * mod
+    else:
+        timer = int(mins) * 60
+        arg = ['m']
+    return timer, arg, mins
+
+
+def main(opciones=None):
+    timer, arg, mins = setup(opciones)
+    pbar = tqdm(range(int(timer)), ncols=30,
+                bar_format='{elapsed} {bar} {desc}')
+    for i in pbar:
+        try:
+            time.sleep(1)
+            pbar.set_description_str(f' {mins}{arg[0]}')
+        except KeyboardInterrupt:
+            try:
+                ans = input(
+                    '\npausaste el timer, continuar [C]? extender [e]? salir [s]?\n')
+                if ans == 's':
+                    print('\nchau!')
+                    pbar.close()
+                    sys.exit(0)
+                if ans == 'e':
+                    opciones = input('cuanto?:\n')
+                    mins_nuevo, *arg = opciones.split()
+                    mins_nuevo = int(mins_nuevo)
+                    mins_nuevo += int(mins)
+                    print(mins_nuevo)
+                    opciones = str.join(str(mins_nuevo), arg)
+                    main(opciones)
+            except KeyboardInterrupt:
+                pbar.clear()
+                sys.exit(0)
+
+            continue
+
+
+if __name__ == "__main__":
+    main()
+    subprocess.Popen(['bell'])
+# try:
+#     for i in pbar:
+#         time.sleep(1)
+#         pbar.set_description_str(f' {secs}{arg[0]}')
+# except KeyboardInterrupt:
+#     print('\nchau!')
+#     sys.exit(0)

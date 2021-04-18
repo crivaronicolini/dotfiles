@@ -1,0 +1,16 @@
+{
+    "suggest.maxCompleteItemCount": 8,
+    "coc.preferences.formatOnSaveFiletypes": ["css", "html"],
+    "coc.preferences.useQuickfixForLocations": true,
+    "diagnostic.locationlist": false,
+    "python.pythonPath":"/home/marco/repos/miniconda3/bin/python",
+    "python.jediEnabled": false,
+    "languageserver": {
+      "julia": {
+          "command": "julia",
+               "args" : ["--startup-file=no", "--history-file=no", "-e",
+                         "import Pkg; using LanguageServer; server = LanguageServerInstance(stdin, stdout,\"false\",\"\"); server.runlinter = true; run(server);"],
+          "filetypes": ["julia"]
+      }
+}
+}

@@ -1,15 +1,15 @@
-"""COLOR"""
-filetype plugin indent on
-syntax enable
-let &background = strftime("%H") < 17 ? "light" : "dark"
-" set background=dark
-" set background=light
-colorscheme PaperColor
 """""""""""
-
 call plug#begin()
-Plug 'junegunn/vim-peekaboo'
-Plug 'godlygeek/tabular'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'lewis6991/gitsigns.nvim'
+
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'dhruvasagar/vim-zoom'
+" Plug 'mhartington/formatter.nvim'
+" Plug 'f-person/git-blame.nvim'
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+Plug 'junegunn/vim-peekaboo' "muestra registros
+Plug 'godlygeek/tabular', {'for': 'pandoc'}
 Plug 'lambdalisue/suda.vim'
 Plug 'JuliaEditorSupport/julia-vim'
 
@@ -17,25 +17,26 @@ Plug 'fatih/vim-go'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'DanilaMihailov/vim-wiki-tips'
-Plug 'etdev/vim-hexcolor'
+" Plug 'chrisbra/Colorizer'
 Plug 'Stautob/vim-fish'
 Plug 'kana/vim-textobj-user'
 Plug 'bps/vim-textobj-python' "af, ac
 " Plug 'thalesmello/vim-textobj-multiline-str' "aQ
-" Plug 'beloglazov/vim-textobj-quotes' "aq
+Plug 'beloglazov/vim-textobj-quotes' "aq
 Plug 'sgur/vim-textobj-parameter' "a,
 Plug 'kana/vim-textobj-entire' "ae
 Plug 'Julian/vim-textobj-variable-segment' "av
 
+Plug 'honza/vim-snippets',
 Plug 'SirVer/ultisnips',
 Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'AndrewRadev/inline_edit.vim', {'for': ['markdown','tex']}
-Plug 'KeitaNakamura/tex-conceal.vim', {'for': ['tex', 'markdown']}
-Plug 'lervag/vimtex', {'for': 'tex'}
-Plug 'mhinz/neovim-remote', {'for': 'tex'}
+Plug 'AndrewRadev/inline_edit.vim', {'for': ['pandoc','tex']}
+" Plug 'KeitaNakamura/tex-conceal.vim', {'for': ['tex', 'pandoc']}
+Plug '~/.config/nvim/plugged/marco-conceal.vim', {'for': ['tex', 'pandoc']}
+" Plug 'lervag/vimtex', {'for': 'tex'}
+" Plug 'mhinz/neovim-remote', {'for': 'tex'}
 
 Plug 'voldikss/vim-floaterm'
-Plug 'rhysd/git-messenger.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'Shougo/echodoc.vim'
 Plug 'skywind3000/asyncrun.vim'
@@ -44,13 +45,13 @@ Plug 'junegunn/goyo.vim'
 
 Plug 'kassio/neoterm'
 Plug 'roxma/nvim-yarp'
-Plug 'felixhummel/setcolors.vim'
+" Plug 'felixhummel/setcolors.vim'
 Plug 'mbbill/undotree'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tell-k/vim-autopep8'
-Plug 'tpope/vim-commentary'
 Plug 'Konfekt/vim-CtrlXA'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -66,29 +67,56 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'rstacruz/vim-coc-settings'
 call plug#end()
 
-"""""SETTINGS"""""
+lua <<EOF
+require('gitsigns').setup()
+EOF
+" lua << EOF
+" require('formatter').setup({
+" filetype ={
+"   pandoc = {
+"       function()
+"         return {
+"           exe = "prettier",
+"           args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), '--single-quote'},
+"           stdin = true
+"         }
+"       end
+"   },
+"   python = {
+"         function()
+"           return {
+"               exe = "autopep8",
+"               args = {vim.api.nvim_buf_get_name(0)},
+"               stdin = true
+"         }
+"       end
+"   },
+"   }})
+" EOF
+
+
+filetype plugin indent on
+syntax enable
+
+set termguicolors
+if &term == 'xterm-kitty'
+    hi Normal ctermbg=None
+    hi SignColumn ctermbg=None
+else
+    set background=dark
+" set background=light
+endif
+let &background =strftime("%H") > 5  && strftime("%H") < 18 ? "light" : "dark"
+colorscheme PaperColor
+
+
+
+let g:latex_to_unicode_tab = 0
+let g:latex_to_unicode_auto = 1
+
 let g:python3_host_prog = '/home/marco/repos/miniconda3/bin/python'
 
-"""""PLUGINS"""""
-"""coc
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>":
-"       \ pumvisible() ? coc#_select_confirm() :
-"       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-
-" function! s:check_back_space() abort
-"   let col = col('.') - 1
-"   return !col || getline('.')[col - 1]  =~# '\s'
-" endfunction
-" inoremap <silent><expr> <c-j>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ coc#refresh()
-" inoremap <silent><expr> <c-k> <C-p>
-" let g:coc_snippet_next = '<tab>'
 let g:coc_global_extensions = ['coc-python', 'coc-go']
-"""
 
 let g:tex_flavor = 'latex'
 let g:go_highlight_types = 1
@@ -106,6 +134,7 @@ call textobj#user#map('multilinestr', {
 let g:textobj_multilinestr_no_default_key_mappings = 1
 
 let g:tex_conceal="abdgm"
+" let g:tex_conceal_frac = M
 
 let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
@@ -126,6 +155,9 @@ let g:float_preview#docked = 0
 
 let mapleader=" "
 
+let g:Hexokinase_highlighters = ['backgroundfull']
+set spellsuggest=7
+set cul
 set hidden
 set number
 set confirm
@@ -153,6 +185,7 @@ set inccommand=nosplit
 set completeopt-=preview
 set completeopt+=menuone
 " set completeopt+=noinsert
+set shortmess+=c
 set wildmode=longest,full
 set virtualedit=block
 set wildignorecase
@@ -181,7 +214,7 @@ set shada='50,<100,:100,%,n~/.vim/shada
 
 packadd! matchit
 " runtime macros/matchit.vim
-au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=100, on_visual=false}
+" au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=100, on_visual=false}
 
 """""MAPPINGS"""""
 nnoremap j gj
@@ -208,12 +241,13 @@ nnoremap 's :Snippets<CR>
 nnoremap '\ :Rg 
 
 source ~/.config/nvim/bookmarks.vim
+source ~/.config/nvim/letrasgriegas.vim
 
 tnoremap  <c-\><C-n>
 " manda esa linea al buffer anterior
-nnoremap <C-q> yy<c-w>pgp<c-w>wj
-tnoremap <C-q> <Up><C-\><C-n>:sleep 100m<CR>02Wy$<c-w>po<Esc>gp<c-w>w
-vnoremap <C-q> y<c-w>wo<Esc>gp<c-w>p
+nnoremap <leader>w yy<c-w>pgp<c-w>wj
+" tnoremap <leader>w <Up><C-\><C-n>:sleep 100m<CR>02Wy$<c-w>po<Esc>gp<c-w>w
+vnoremap <leader>w y<c-w>wo<Esc>gp<c-w>p
 
 nnoremap <silent> n n:call HLNext(0.1)<cr>
 nnoremap <silent> N N:call HLNext(0.1)<cr>
@@ -233,10 +267,10 @@ tmap <C-k> <C-\><C-n><C-w>k
 tmap <C-h> <C-\><C-n><C-w>h
 tmap <C-l> <C-\><C-n><C-w>l
 
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
 
 "Window Resizing
 nnoremap <silent><S-Right> :vertical resize +3<cr>
@@ -269,9 +303,9 @@ vmap <F4> y:execute "%s/".escape(@",'[]/')."//gc"<Left><Left><Left><Left>
 nnoremap Q @@
 
 "changes directory to the current file's location
-nnoremap <Leader>c :<C-U>cd %:h<CR>:pwd<CR>
+nnoremap <Leader>C :<C-U>cd %:h<CR>:pwd<CR>
 
-nnoremap <silent><Leader>C :let @+=expand('%:p:h')<CR>
+nnoremap <silent><Leader>c :let @+=expand('%:p:h')<CR>:echo "copied current filepath to clipboard"<CR>
 
 " Lead u pone el UndoTree
 nnoremap <Leader>u :UndotreeToggle<CR>
@@ -353,17 +387,21 @@ nnoremap <silent> 'T :edit ~/todo.md<CR>
 "usa Ctrl-u para rehacer
 noremap <C-u> <C-r>
 
-nnoremap <leader>w ]S1z=:spellr<CR>
+" lead w para arreglar el spell siguiente
+nnoremap <silent> <leader>t ]S1z=:spellr<CR>
+
+" C-l para arreglar spells recien escritos
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 "dice a que syntax group pertenece la palabra bajo el cursor
 nnoremap <silent> <leader>h :call SynGroup()<CR>
 
 "F9 para repasar spelling
-nnoremap <F9> :silent setlocal spell! spelllang=es,en<CR>
+nnoremap <F9> :silent setlocal spell! spelllang=es<CR>
 
 "agarra la letra bajo el cursor y la vuelve a poner con tilde, es hermoso
-nnoremap <silent> `` s<c-r>=tr(@", 'aeioucnAEIOUCNáéíóúçñÁÉÍÓÚÇÑ', 'áéíóúçñÁÉÍÓUÇÑaeioucnAEIOUCN')<cr><esc>
-
+nnoremap <silent> `` s<c-r>=tr(@", 'aeiounAEIOUNáéíóúñÁÉÍÓÚÑ','áéíóúñÁÉÍÓUÑaeiounAEIOUN')<cr><esc>
+                                   
 "saca el highlight
 " nnoremap <silent> <F4> :set nohlsearch<CR>
 nnoremap <silent><expr> <F4> (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
@@ -371,9 +409,6 @@ nnoremap <silent><expr> <F4> (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 "abre el archivo actual en pdf
 nnoremap <leader>o :!zathura %:r.pdf >/dev/null 2>&1 &<CR><CR>
 " nnoremap <leader>o :!zathura %:p:h/pdf/%:r.pdf >/dev/null 2>&1 &<CR><CR>
-
-nnoremap <leader>1 m90x`9
-nnoremap <leader>2 m9I#`9
 
 cnoremap <c-n>  <down>
 cnoremap <c-p>  <up>
@@ -441,4 +476,3 @@ function! Go_to_plugin_url()
     let plug = matchstr(getline('.'), "'\\zs[^']\\+\\ze'")
     call netrw#BrowseX('https://github.com/' . plug, netrw#CheckIfRemote())
 endfunction
-

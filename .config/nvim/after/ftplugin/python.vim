@@ -13,12 +13,13 @@ let g:neoterm_auto_repl_cmd = 1
 let g:neoterm_default_mod='vertical' " open terminal in bottom split
 let g:neoterm_size=66 " terminal split size
 let g:neoterm_autoscroll=1 " scroll to the bottom when running a command
+let g:neoterm_bracketed_paste=1
 
 let g:autopep8_on_save = 1
 let g:autopep8_disable_show_diff=1
 let g:asyncrun_open=8
 let g:asyncrun_trim=1
-let g:asyncrun_exit = 'silent call Ring_bell()'
+" let g:asyncrun_exit = 'silent call Ring_bell()'
 
 if line('$')>300
     setlocal foldmethod=indent
@@ -31,21 +32,22 @@ let $PYTHONUNBUFFERED=1
 autocmd BufWritePost *.py normal! mP
 autocmd BufWritePre *.py execute ':Semshi highlight'
 
-nnoremap <leader>w :TREPLSendLine<CR>j
-vnoremap <leader>w :TREPLSendSelection<CR>
-nnoremap <silent> <CR> :w <CR>orun <Esc>:put=expand('%:p')<CR>kJ<Esc>:TREPLSendLine<CR>u
-nmap <leader>W vic:TREPLSendSelection<CR>``
-nnoremap <Leader>v :call Go_pdb()<cr>
-map <silent> <F5> :w <bar> AsyncRun python3 %<CR>
-nnoremap <silent> <leader>rr :Semshi rename<CR>
+nnoremap <buffer> <leader>w :TREPLSendLine<CR>j
+vnoremap <buffer> <leader>w :TREPLSendSelection<CR>
+nnoremap <buffer> <silent> <CR> :w <CR>orun <Esc>:put=expand('%:p')<CR>kJ<Esc>:TREPLSendLine<CR>u
+" nnoremap <buffer> <leader>W vap:TREPLSendSelection<CR>``
+nnoremap <buffer> <silent> <leader>W :call Send_par()<CR>
+" nnoremap <buffer> <Leader>v :call Go_pdb()<cr>
+map <buffer> <silent> <F5> :w <bar> AsyncRun python3 %<CR>
+nnoremap <buffer> <silent> <leader>rr :Semshi rename<CR>
 
-nnoremap <leader>m :call Unmake_block()<CR>
-xnoremap <leader>m :<c-u>call Make_block()<CR>
+nnoremap <buffer> <leader>m :call Unmake_block()<CR>
+xnoremap <buffer> <leader>m :<c-u>call Make_block()<CR>
 
 " functions
-nmap <silent> <leader>e :Semshi goto error<CR>
-nmap <silent> ]f :Semshi goto function next<CR>
-nmap <silent> [f :Semshi goto function prev<CR>
+nmap <buffer> <silent> <leader>e :Semshi goto error<CR>
+nmap <buffer> <silent> ]f :Semshi goto function next<CR>
+nmap <buffer> <silent> [f :Semshi goto function prev<CR>
 
 " nnoremap <silent> gh :call CocAction('doHover')<CR>
 
@@ -122,6 +124,16 @@ function! Send_cell()
     " execute('TREPLSendSelection')
     " normal! ``k
     let @/ = search
+endfunction
+
+function! Send_par()
+    let l:cursor = winsaveview()
+    " normal! vapvap
+    normal! "yyapvapvap
+    execute('TREPLSendSelection')
+    normal 
+    " call setpos('.', cursor)
+    call winrestview(cursor)
 endfunction
 
 set errorformat=

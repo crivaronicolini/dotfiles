@@ -1,3 +1,5 @@
+# vim:syn=zsh
+
 set shell sh
 set shellopts '-eu'
 set ifs "\n"
@@ -64,26 +66,20 @@ cmd bulk-rename ${{
 }}
 
 cmd Link %{{
-    for file in $(lf -remote 'load'); do
-        if [ ! -n "${mode+1}" ]; then
-            mode="$file"
-            continue
-        fi
-        files+=("$file")
-    done
-    if [ "${#files[@]}" -lt 1 ]; then
-        lf -remote "send $id echo no files to link files: ${files}"
+    set -- $(lf -remote load)
+    mode="$1"
+    shift
+    if [ "$#" -lt 1 ]; then
+        lf -remote "send $id echo no files to link"
         exit 0
     fi
-    # symbolically  copy mode is indicating a soft link
-    if [[ "$mode" == copy ]]; then
-        ln -sr $files -t .
-    # while a move mode is indicating a hard link
-    elif [[ "$mode" == move ]]; then
-        ln $files -t .
-    fi
+    case "$mode" in
+        # symbolically copy mode is indicating a soft link
+        copy) ln -sr -t . -- "$@";;
+        # while a move mode is indicating a hard link
+        move) ln -t . -- "$@";;
+    esac
 }}
-map P :Link
 
 cmd newfolder %{{
     set -f
@@ -92,38 +88,6 @@ cmd newfolder %{{
     mkdir $newd
     mv $fx $newd
 }}
-
-map A newfolder
-map <c-f> $lf -remote "send $id select '$(fzf)'"
-
-map C push R<c-u> # new rename
-map I push R<c-a> # at the very beginning
-map R rename # at the very end
-map r push R<a-b><a-b><a-f> # before extention
-map B bulk-rename 
-
-map N push $touch<space>
-map b $man $f
-map x trash
-map X !$f
-map o !mimeopen $f
-map O !mimeopen --ask $f
-map go $zathura $f &
-map a push :mkdir<space>
-map t extract $f
-map T push :tar<space>
-map Z push :zip<space>
-map D delete
-map <a-o> quit
-map J push 6j
-map K push 6k
-map H push hkl
-map L push hjl
-map ? doc
-map <esc> quit
-map q quit
-set previewer ~/.config/lf/pv.sh
-map i $~/.config/lf/pv.sh $f | less -R
 
 cmd img &{{
     a="${f##*/}"
@@ -148,6 +112,46 @@ cmd imG &{{
     lf -remote "send select $(echo $sel)"
     # sxiv -ab . -n $num -g 1100x900+410+50
 }}
+
+cmd blah ${{
+    chmod +x $fx
+    lf -remote 'send reload'
+}}
+
+map <c-f> $lf -remote "send $id select '$(fzf)'"
+map <c-x> blah
+
+map C push R<a-b><a-b><a-f><c-u> # change till ext
+map I push R<c-a> # at the very beginning
+map R rename # at the very end
+map r push R<a-b><a-b><a-f> # before extention
+map B bulk-rename 
+
+map P :Link
+map N push $touch<space>
+map b $man $f
+map x trash
+map X !$f
+map o !mimeopen $f
+map O !mimeopen --ask $f
+map go $zathura $f &
+map a push :mkdir<space>
+map A newfolder
+map t extract $f
+map T push :tar<space>
+map Z push :zip<space>
+map D delete
+map <a-o> quit
+map J push 6j
+map K push 6k
+map H push hkl
+map L push hjl
+map ? doc
+map <esc> quit
+map q quit
+set previewer ~/.config/lf/pv.sh
+map i $~/.config/lf/pv.sh $f | less -R
+
 map w img
 map W imG
 

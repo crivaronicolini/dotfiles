@@ -2,18 +2,20 @@
 
 bind \eh backward-char
 bind \el forward-char
+bind \ej backward-word
+bind \ek forward-word
 bind \eH beginning-of-line
 bind \eL end-of-line
-# bind \eo 'stty sane; lfcd; commandline -f repaint'
 bind \eo 'lfcd; commandline -f repaint'
-# bind \eo 'lfcd; printf "\033[J"'
 bind \cx 'fg 2>/dev/null'
 bind \ed 'sd'
+bind \ch 'builtin cd ..; commandline -f repaint'
 
 alias mvim 'nvim -u ~/.config/nvim/minimal.vim $argv'
 alias jup2md 'jupyter nbconvert *.ipynb --to markdown '
+alias jup2html 'jupyter nbconvert *.ipynb --to html '
 # alias bell 'cvlc --play-and-exit ~/.vim/success_asyncrun.mp3 2>/dev/null'
-alias timer 'timer.py "$argv"; and bell'
+# alias timer 'timer.py "$argv"; and bell'
 alias en 'nvim ~/.config/nvim/init.vim'
 alias el 'nvim ~/.config/lf/lfrc'
 alias ef 'nvim ~/.config/fish/config.fish'

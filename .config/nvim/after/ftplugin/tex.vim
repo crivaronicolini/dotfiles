@@ -5,7 +5,6 @@ let g:vimtex_quickfix_mode=0
 
 set conceallevel=2
 let g:tex_conceal='abdmgs'
-hi Conceal ctermfg=white
 
 nmap <leader>lv  :VimtexView<CR>
 " nmap <leader>lv  <plug>(vimtex-view)             
@@ -19,7 +18,4 @@ nmap <leader>lr  <plug>(vimtex-reverse-search)
 nmap <leader>le  <plug>(vimtex-errors)           
 nmap <leader>lo  <plug>(vimtex-compile-output)   
 
-noremap <buffer> <silent> k gk
-noremap <buffer> <silent> j gj
-
-autocmd BufWritePost * normal! mM
+autocmd BufWritePost * normal! mT

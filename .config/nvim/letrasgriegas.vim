@@ -1,0 +1,34 @@
+imap <c-v>a \alpha
+imap <c-v>b \beta
+imap <c-v>c \gamma
+imap <c-v>d \delta
+imap <c-v>e \epsilon
+imap <c-v>f \phi
+imap <c-v>h \theta
+imap <c-v>k \kappa
+imap <c-v>m \mu
+imap <c-v>n \nu 
+imap <c-v>o \omega
+imap <c-v>p \pi
+imap <c-v>r \rho
+imap <c-v>s \sigma
+imap <c-v>t \tau
+imap <c-v>x \chi
+
+imap <c-v>A \Alpha
+imap <c-v>B \Beta
+imap <c-v>C \Gamma
+imap <c-v>D \Delta
+imap <c-v>E \Epsilon
+imap <c-v>F \Phi
+imap <c-v>H \Theta
+imap <c-v>K \Kappa
+imap <c-v>M \Mu
+imap <c-v>N \Nu 
+imap <c-v>O \Omega
+imap <c-v>P \Pi
+imap <c-v>R \Rho
+imap <c-v>S \Sigma
+imap <c-v>T \Tau
+imap <c-v>X \Chi
+

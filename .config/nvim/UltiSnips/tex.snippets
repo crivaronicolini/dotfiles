@@ -44,21 +44,25 @@ snippet template "Basic template" b
 	$0
 \end{document}
 endsnippet
-#--------------MARCO----------
 
-snippet sec "section" ba
+#--------------MARCO----------
+snippet ref "referencia" i
+\ref{$1} $0
+endsnippet
+
+snippet sec "section" bA
 \\section{$1}
 
 $0
 endsnippet
 
-snippet ssec "subsection" ba
+snippet ssec "subsection" bA
 \\subsection*{$1}
 
 $0
 endsnippet
 
-snippet sssec "subsubsection" ba
+snippet sssec "subsubsection" bA
 \\subsubsection*{$1}
 
 $0
@@ -78,18 +82,21 @@ endsnippet
 
 context "math()"
 snippet vel "punto sobre var" i
-\\dot{$1} $0
+\\vd{$1} $0
+endsnippet
+
+snippet a "a" b
+asdas
 endsnippet
 #--------------MARCO----------
 
-snippet beg "begin{} / end{}" ba
+snippet beg "begin{} / end{}" bA
 \\begin{$1}
 	$0
 \\end{$1}
 endsnippet
 
-priority 100
-snippet ... "ldots" iA
+snippet ... "ldots" i
 \ldots
 endsnippet
 
@@ -337,12 +344,12 @@ snippet part "d/dx" w
 endsnippet
 
 context "math()"
-snippet sq "\sqrt{}" iA
+snippet sr "\sqrt{}" iA
 \sqrt{${1:${VISUAL}}} $0
 endsnippet
 
 context "math()"
-snippet sr "^2" iA
+snippet sq "^2" iA
 ^2
 endsnippet
 
@@ -534,7 +541,7 @@ snippet compl "complement" iA
 endsnippet
 
 context "math()"
-snippet \\\ "setminus" iA
+snippet \\\ "setminus" i
 \setminus
 endsnippet
 
