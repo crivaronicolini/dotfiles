@@ -118,6 +118,8 @@ cmd blah ${{
     lf -remote 'send reload'
 }}
 
+map st :set sortby time; set info time; set reverse!; top -- [];
+
 map <c-f> $lf -remote "send $id select '$(fzf)'"
 map <c-x> blah
 
@@ -126,6 +128,7 @@ map I push R<c-a> # at the very beginning
 map R rename # at the very end
 map r push R<a-b><a-b><a-f> # before extention
 map B bulk-rename 
+map S $echo `date +'%A'` >> `date  +'%d-%m-%Y'`;rm ~/log/today;ln `date +'%d-%m-%Y'` ~/log/today 
 
 map P :Link
 map N push $touch<space>
@@ -155,3 +158,4 @@ map i $~/.config/lf/pv.sh $f | less -R
 map w img
 map W imG
 
+map . &nautilus .

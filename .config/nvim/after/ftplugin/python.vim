@@ -7,9 +7,9 @@ let g:semshi#error_sign_delay = 2
 let g:semshi#excluded_hl_groups = ['local']
 
 let g:neoterm_shell = '/usr/bin/fish'
-" let g:neoterm_repl_python = ['ipython']
+let g:neoterm_repl_python = ['ipy']
 let g:neoterm_direct_open_repl = 1
-let g:neoterm_auto_repl_cmd = 1
+" let g:neoterm_auto_repl_cmd = 1
 let g:neoterm_default_mod='vertical' " open terminal in bottom split
 let g:neoterm_size=66 " terminal split size
 let g:neoterm_autoscroll=1 " scroll to the bottom when running a command
@@ -40,9 +40,10 @@ nnoremap <buffer> <silent> <leader>W :call Send_par()<CR>
 " nnoremap <buffer> <Leader>v :call Go_pdb()<cr>
 map <buffer> <silent> <F5> :w <bar> AsyncRun python3 %<CR>
 nnoremap <buffer> <silent> <leader>rr :Semshi rename<CR>
+nnoremap <buffer> <leader>m :call Send_cell()<CR>
 
-nnoremap <buffer> <leader>m :call Unmake_block()<CR>
-xnoremap <buffer> <leader>m :<c-u>call Make_block()<CR>
+nnoremap <buffer> <leader>M :call Unmake_block()<CR>
+xnoremap <buffer> <leader>M :<c-u>call Make_block()<CR>
 
 " functions
 nmap <buffer> <silent> <leader>e :Semshi goto error<CR>
@@ -121,8 +122,8 @@ function! Send_cell()
     let search = @/
     normal! /# %%<CR>
     normal! nkVNj
-    " execute('TREPLSendSelection')
-    " normal! ``k
+    execute('TREPLSendSelection')
+    normal! ``k
     let @/ = search
 endfunction
 
@@ -139,6 +140,3 @@ endfunction
 set errorformat=
     \%*\\sFile\ \"%f\"\\,\ line\ %l\\,\ %m,
     \%*\\sFile\ \"%f\"\\,\ line\ %l,
-
-
-

@@ -1,1 +1,2 @@
-rsync -aPvh --exclude-from=exclude {./documents, ./bin, ./Desktop, ./pictures,./.config/coc,  ./.config/lf, ./.config/nvim, ./.config/fish} /media/marco/External1_RC/home/marco20/
+#!/bin/sh
+rsync -aPvh --dry-run --exclude-from=./bin/exclude {./documents, ./bin, ./Desktop, ./pictures,./.config/coc,  ./.config/lf, ./.config/nvim, ./.config/fish} /media/marco/External1_RC/home/marco20/

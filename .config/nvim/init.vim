@@ -1,5 +1,8 @@
 """""""""""
 call plug#begin()
+Plug 'tomtom/tcomment_vim'
+Plug 'leafOfTree/vim-svelte-plugin'
+
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 
@@ -33,7 +36,7 @@ Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'AndrewRadev/inline_edit.vim', {'for': ['pandoc','tex']}
 " Plug 'KeitaNakamura/tex-conceal.vim', {'for': ['tex', 'pandoc']}
 Plug '~/.config/nvim/plugged/marco-conceal.vim', {'for': ['tex', 'pandoc']}
-" Plug 'lervag/vimtex', {'for': 'tex'}
+Plug 'lervag/vimtex', {'for': 'tex'}
 " Plug 'mhinz/neovim-remote', {'for': 'tex'}
 
 Plug 'voldikss/vim-floaterm'
@@ -51,7 +54,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tell-k/vim-autopep8'
 Plug 'Konfekt/vim-CtrlXA'
-Plug 'tpope/vim-commentary'
+" Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -67,33 +70,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'rstacruz/vim-coc-settings'
 call plug#end()
 
-lua <<EOF
-require('gitsigns').setup()
-EOF
-" lua << EOF
-" require('formatter').setup({
-" filetype ={
-"   pandoc = {
-"       function()
-"         return {
-"           exe = "prettier",
-"           args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), '--single-quote'},
-"           stdin = true
-"         }
-"       end
-"   },
-"   python = {
-"         function()
-"           return {
-"               exe = "autopep8",
-"               args = {vim.api.nvim_buf_get_name(0)},
-"               stdin = true
-"         }
-"       end
-"   },
-"   }})
-" EOF
 
+
+let autopep8_on_save = 0
 
 filetype plugin indent on
 syntax enable
@@ -109,12 +88,14 @@ endif
 let &background =strftime("%H") > 5  && strftime("%H") < 18 ? "light" : "dark"
 colorscheme PaperColor
 
+lua require('gitsigns').setup()
 
-
+let g:vimtex_complete_bib = {'simple' : 1}
 let g:latex_to_unicode_tab = 0
 let g:latex_to_unicode_auto = 1
 
-let g:python3_host_prog = '/home/marco/repos/miniconda3/bin/python'
+let g:python3_host_prog = '/usr/bin/python3'
+
 
 let g:coc_global_extensions = ['coc-python', 'coc-go']
 
@@ -146,16 +127,20 @@ let g:sneak#s_next = 1
 "highligh de python en markdown
 let g:markdown_fenced_languages = ['go', 'python']
 let g:pandoc#syntax#codeblocks#embeds#langs = ['python']
+let g:pandoc#syntax#conceal#urls = 1
 
 let g:neoterm_automap_keys = 0
 
 let g:rainbow_active = 1
+
+let g:floaterm_opener='edit'
 
 let g:float_preview#docked = 0
 
 let mapleader=" "
 
 let g:Hexokinase_highlighters = ['backgroundfull']
+set ignorecase
 set spellsuggest=7
 set cul
 set hidden
@@ -192,7 +177,7 @@ set wildignorecase
 set splitright
 set include=
 set history=500
-set formatoptions+=j
+set formatoptions+=jon "default tcqj
 set nonumber
 set signcolumn=yes:1
 set autoread
@@ -200,9 +185,9 @@ set autowriteall
 
 set undolevels=500
 set undofile
-set undodir^=/home/marco/.vim/cache/undo
+set undodir^=/home/marco/.config/nvim/cache/undo
 set backup
-set backupdir^=/home/marco/.vim/cache/backup
+set backupdir^=/home/marco/.config/nvim/cache/backup
 
 " sacados del vimrc de tom ryder (misc/tejr)
 set nrformats+=alpha
@@ -214,7 +199,7 @@ set shada='50,<100,:100,%,n~/.vim/shada
 
 packadd! matchit
 " runtime macros/matchit.vim
-" au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=100, on_visual=false}
+au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=100, on_visual=false}
 
 """""MAPPINGS"""""
 nnoremap j gj
@@ -228,6 +213,9 @@ nnoremap gk k
 nnoremap <leader>e :InlineEdit<cr>
 xnoremap <leader>e :InlineEdit<cr>
 " inoremap <c-e> <esc>:InlineEdit<cr>a
+
+
+nnoremap <tab> gt
 
 """FZF"""
 autocmd! FileType fzf tnoremap <Esc> <C-c>
@@ -288,10 +276,10 @@ vnoremap <Leader>y "+y
 vnoremap <Leader>d "+d
 
 "usa lead p para pegar
-nnoremap <Leader>p :set paste<CR>"+]p:set nopaste<CR>
-nnoremap <Leader>P :set paste<CR>"+]P:set nopaste<CR>
-vnoremap <Leader>p :set paste<CR>"+]p:set nopaste<CR>
-vnoremap <Leader>P :set paste<CR>"+]P:set nopaste<CR>
+nmap <Leader>p :set paste<CR>"+]p:set nopaste<CR>
+nmap <Leader>P :set paste<CR>"+]P:set nopaste<CR>
+vmap <Leader>p :<C-u>set paste<CR>"+]p:<C-u>set nopaste<CR>
+vmap <Leader>P :<C-u>set paste<CR>"+]P:<C-u>set nopaste<CR>
 
 " busca la seleccion con / y abajo con ?
 vmap / y:execute "/".escape(@",'[]/\.*')<CR>
@@ -303,9 +291,9 @@ vmap <F4> y:execute "%s/".escape(@",'[]/')."//gc"<Left><Left><Left><Left>
 nnoremap Q @@
 
 "changes directory to the current file's location
-nnoremap <Leader>C :<C-U>cd %:h<CR>:pwd<CR>
+nnoremap <Leader>c :<C-U>cd %:h<CR>:pwd<CR>
 
-nnoremap <silent><Leader>c :let @+=expand('%:p:h')<CR>:echo "copied current filepath to clipboard"<CR>
+nnoremap <silent><Leader>C :let @+=expand('%:p:h')<CR>:echo "copied current filepath to clipboard"<CR>
 
 " Lead u pone el UndoTree
 nnoremap <Leader>u :UndotreeToggle<CR>
@@ -319,7 +307,7 @@ vnoremap <Leader>s :s//g<Left><Left>
 nmap <F7> :Goyo<CR>
 
 "abre quickfix
-noremap <silent><F3> :call asyncrun#quickfix_toggle(8)<cr>
+noremap <silent><F5> :call asyncrun#quickfix_toggle(8)<cr>
 
 nnoremap <silent> <M-o> :FloatermNew lf<CR>
 
@@ -376,6 +364,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " de VIMRC
+nnoremap <C-r> :source $MYVIMRC<CR>:AirlineRefresh<CR>
 nnoremap <silent><leader>v :call Do_math()<CR>
 autocmd! BufWritePost $MYVIMRC source %
 nnoremap <silent> 'V :edit $MYVIMRC<CR>
@@ -394,7 +383,7 @@ nnoremap <silent> <leader>t ]S1z=:spellr<CR>
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 "dice a que syntax group pertenece la palabra bajo el cursor
-nnoremap <silent> <leader>h :call SynGroup()<CR>
+" nnoremap <silent> <leader>h :call SynGroup()<CR>
 
 "F9 para repasar spelling
 nnoremap <F9> :silent setlocal spell! spelllang=es<CR>
@@ -444,6 +433,9 @@ let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
+
+let g:airline_left_sep=''
+let g:airline_right_sep=''
 let g:airline_section_y = '%{strftime("%H:%M")}'
 let g:airline_section_z = 'ln %l/%L'
 let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
@@ -464,7 +456,8 @@ function! Do_math()
     " test expression:
     " sin(0) +123.3- 2^3+cos(22*pi/180) = 
     let cursor = getcurpos()
-    let expr = substitute(getline("."), "=", "", "")
+    let expr = substitute(getline("."), "=.*", "", "")
+
     let result = system("qalc -t '" . expr . "'")[:-2]
     call append(".", result)
     normal! J
@@ -476,3 +469,11 @@ function! Go_to_plugin_url()
     let plug = matchstr(getline('.'), "'\\zs[^']\\+\\ze'")
     call netrw#BrowseX('https://github.com/' . plug, netrw#CheckIfRemote())
 endfunction
+
+fun! Whitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+
+command! Whitespace call Whitespace()

@@ -88,6 +88,21 @@ endsnippet
 snippet a "a" b
 asdas
 endsnippet
+
+snippet eq "equation" bA
+\\begin{equation}
+	$1
+\\label{$2}
+\\end{equation}
+
+$0
+endsnippet
+
+context "math()"
+snippet SI "si" iA
+\si{$1}$0
+endsnippet
+
 #--------------MARCO----------
 
 snippet beg "begin{} / end{}" bA
@@ -642,10 +657,6 @@ snippet case "cases" wA
 \begin{cases}
 	$1
 \end{cases}
-endsnippet
-
-snippet SI "SI" iA
-\SI{$1}{$2}
 endsnippet
 
 # snippet align "align-function" iA

@@ -75,7 +75,7 @@ function fish_prompt
     # echo -n -s $cwd $repo_info $normal $arrow ' '
     echo -n -s $cwd $normal $arrow ' '
 
-    set lista "man" "htop" "ef" "en" "el" "nvim" "lfcd" "l" "less" "zoom" "calc" "sc" "sd" "qalc"
+    set lista "now" "man" "htop" "ef" "en" "el" "nvim" "lfcd" "l" "less" "zoom" "calc" "sc" "sd" "qalc"
     set otra (string split ' ' $history[1])
     set -l hacer true
     if test $CMD_DURATION -gt (math "1000 * 10")

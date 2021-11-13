@@ -76,7 +76,13 @@ snippet img "imagen" i
 ![$1]($2){ width=250px }
 $0
 endsnippet
-# --------
+
+context "math()"
+snippet tex "text" iA
+\text{${1:${VISUAL}}} $0
+endsnippet
+
+# -------- MARCO
 
 priority 100
 snippet ... "ldots" i

@@ -16,6 +16,7 @@ nnoremap <silent> [i :call <SID>ChangeItemLevel(-1)<CR>
 nnoremap <silent> ]r :call <SID>ChangeSectionLevel(1)<CR>
 nnoremap <silent> [r :call <SID>ChangeSectionLevel(-1)<CR>
 
+autocmd InsertLeave * if &readonly==0 && filereadable(bufname('%')) | silent update | endif
 " -
     " -
 function! s:ChangeItemLevel(dir) abort
@@ -133,10 +134,10 @@ function! s:ChangeSectionLevel(dir) abort
 endfunction
 
 
-iabbrev prob probabilidad
-iabbrev exp experimento
-iabbrev def definición
-iabbrev conj conjunto
-iabbrev sconj subconjunto
+iabbrev <buffer> prob probabilidad
+iabbrev <buffer> exp experimento
+iabbrev <buffer> def definición
+iabbrev <buffer> conj conjunto
+iabbrev <buffer> sconj subconjunto
 
 

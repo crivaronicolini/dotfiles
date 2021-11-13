@@ -6,7 +6,8 @@ current=$(xdotool getactivewindow)
 wppwindow=$(xdotool search --name WhatsApp)
 if [ -z "$wppwindow" ]
 then
-    xdg-open https://web.whatsapp.com &
+    # xdg-open https://web.whatsapp.com &
+    xdotool key meta+3
     wppwindow=$(xdotool search --name WhatsApp)
 fi
 

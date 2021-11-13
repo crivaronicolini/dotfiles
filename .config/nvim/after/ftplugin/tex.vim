@@ -3,6 +3,8 @@ let g:vimtex_compiler_progname = 'nvr'
 let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
 
+autocmd InsertLeave * if &readonly==0 && filereadable(bufname('%')) | silent update | endif
+
 set conceallevel=2
 let g:tex_conceal='abdmgs'
 
