@@ -26,3 +26,9 @@ Aplicar
 config checkout
 ```
 
+Para agregar todos los archivos modificados:
+
+```fish
+config add -u
+```
+
