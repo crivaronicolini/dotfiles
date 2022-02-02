@@ -1,6 +1,6 @@
 function sd -d "usa fzf para abrir documentos en nvim"
     # builtin cd ~/Documents
-    set arc (fdfind --type f . ~/documents | fzf -m --reverse --height 40% --preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200')
+    set arc (fd --type f . ~/documents | fzf -m --reverse --height 40% --preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200')
     if [ -z $arc ]
         return 0
     else

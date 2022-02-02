@@ -1167,6 +1167,9 @@ fun! s:apply_syntax_highlightings()
   exec 'hi WildMenu' . s:fg_wildmenu_fg . s:bg_wildmenu_bg . s:ft_bold
 
   if version >= 700
+
+
+command! Scratch new | setlocal bt=nofile bh=wipe nobl noswapfile nu
     exec 'hi CursorLine'  . s:bg_cursorline . s:ft_none
     if s:mode == s:MODE_16_COLOR
       exec 'hi CursorLineNr' . s:fg_cursorlinenr_fg . s:bg_cursorlinenr_bg

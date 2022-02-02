@@ -1,4 +1,4 @@
-#!/home/marco/repos/miniconda3/bin/python3
+#!/usr/bin/python3
 # vim: set filetype=python:
 import subprocess
 import time

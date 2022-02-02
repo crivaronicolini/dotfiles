@@ -1,10 +1,8 @@
 let g:pydoc_open_cmd = 'vsplit'
-let g:echodoc#enable_at_startup = 1
-let g:echodoc#type = 'floating'
-highlight link EchoDocFloat Pmenu
+" nmap H <Plug>ShowPyDoc4
 
-let g:semshi#error_sign_delay = 2
-let g:semshi#excluded_hl_groups = ['local']
+" let g:semshi#error_sign_delay = 2
+" let g:semshi#excluded_hl_groups = ['local']
 
 let g:neoterm_shell = '/usr/bin/fish'
 let g:neoterm_repl_python = ['ipy']
@@ -30,11 +28,12 @@ endif
 let $PYTHONUNBUFFERED=1
 
 autocmd BufWritePost *.py normal! mP
-autocmd BufWritePre *.py execute ':Semshi highlight'
+" autocmd BufWritePre *.py execute ':Semshi highlight'
 
 nnoremap <buffer> <leader>w :TREPLSendLine<CR>j
 vnoremap <buffer> <leader>w :TREPLSendSelection<CR>
-nnoremap <buffer> <silent> <CR> :w <CR>orun <Esc>:put=expand('%:p')<CR>kJ<Esc>:TREPLSendLine<CR>u
+" nnoremap <buffer> <silent> <CR> :w <CR>orun <Esc>:put=expand('%:p')<CR>kJ<Esc>:TREPLSendLine<CR>u
+nnoremap <buffer> <CR> :TREPLSendFile<CR>
 " nnoremap <buffer> <leader>W vap:TREPLSendSelection<CR>``
 nnoremap <buffer> <silent> <leader>W :call Send_par()<CR>
 " nnoremap <buffer> <Leader>v :call Go_pdb()<cr>
@@ -45,41 +44,42 @@ nnoremap <buffer> <leader>m :call Send_cell()<CR>
 nnoremap <buffer> <leader>M :call Unmake_block()<CR>
 xnoremap <buffer> <leader>M :<c-u>call Make_block()<CR>
 
-" functions
-nmap <buffer> <silent> <leader>e :Semshi goto error<CR>
-nmap <buffer> <silent> ]f :Semshi goto function next<CR>
-nmap <buffer> <silent> [f :Semshi goto function prev<CR>
-
+" " functions
+" nmap <buffer> <silent> <leader>e :Semshi goto error<CR>
+" nmap <buffer> <silent> ]f :Semshi goto function next<CR>
+" nmap <buffer> <silent> [f :Semshi goto function prev<CR>
+"
 " nnoremap <silent> gh :call CocAction('doHover')<CR>
 
-call textobj#user#plugin('blocko',{
-        \   'block':{
-        \        '*sfile*': expand('<sfile>:p'),
-        \        'select-a': 'ac',  '*select-a-function*': 's:select_a',
-        \        'select-i': 'ic',  '*select-i-function*': 's:select_i'
-        \      }
-        \    })
+" call textobj#user#plugin('blocko',{
+"         \   'block':{
+"         \        '*sfile*': expand('<sfile>:p'),
+"         \        'select-a': 'ac',  '*select-a-function*': 's:select_a',
+"         \        'select-i': 'ic',  '*select-i-function*': 's:select_i'
+"         \      }
+"         \    })
+"
 
-function! s:select_a()
-    let search = @/
-    execute "normal! /# %%\<CR>"
-    let end_pos = getpos('.')
-    normal! N
-    let start_pos = getpos('.')
+" function! s:select_a()
+"     let search = @/
+"     execute "normal! /# %%\<CR>"
+"     let end_pos = getpos('.')
+"     normal! N
+"     let start_pos = getpos('.')
+"
+"     let @/ = search
+"     return ['V', start_pos, end_pos]
+" endfunction
 
-    let @/ = search
-    return ['V', start_pos, end_pos]
-endfunction
-
-function! s:select_i()
-    let search = @/
-    execute "normal! /# %%\<CR>k"
-    let end_pos = getpos('.')
-    normal! Nj
-    let start_pos = getpos('.')
-    let @/ = search
-    return ['V', start_pos, end_pos]
-endfunction
+" function! s:select_i()
+"     let search = @/
+"     execute "normal! /# %%\<CR>k"
+"     let end_pos = getpos('.')
+"     normal! Nj
+"     let start_pos = getpos('.')
+"     let @/ = search
+"     return ['V', start_pos, end_pos]
+" endfunction
 
 
 "abre el archivo en el debugger

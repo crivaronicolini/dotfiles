@@ -3,7 +3,7 @@
     "coc.preferences.formatOnSaveFiletypes": ["css", "html"],
     "coc.preferences.useQuickfixForLocations": true,
     "diagnostic.locationlist": false,
-    "python.pythonPath":"/home/marco/repos/miniconda3/bin/python",
+    "python.pythonPath":"/bin/python",
     "python.jediEnabled": false,
     "languageserver": {
       "julia": {

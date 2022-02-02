@@ -1,38 +1,65 @@
-"""""""""""
 call plug#begin()
-Plug 'tomtom/tcomment_vim'
+
+Plug 'Neevash/awesome-flutter-snippets'
+Plug 'akinsho/flutter-tools.nvim'
+
+Plug 'Th3Whit3Wolf/one-nvim'
+
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'L3MON4D3/LuaSnip'
+" Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+Plug 'ray-x/lsp_signature.nvim'
+
+Plug '~/.config/nvim/plugged/nvim-highlite'
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
+Plug 'nvim-treesitter/playground'
+Plug 'nvim-treesitter/nvim-treesitter-textobjects', {'branch' : '0.5-compat'}
+Plug 'nvim-treesitter/nvim-treesitter-refactor'
+Plug 'norcalli/nvim-colorizer.lua'
+Plug 'numToStr/Comment.nvim'
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+
 Plug 'leafOfTree/vim-svelte-plugin'
+Plug 'mattn/emmet-vim'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'dhruvasagar/vim-zoom'
-" Plug 'mhartington/formatter.nvim'
-" Plug 'f-person/git-blame.nvim'
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
-Plug 'junegunn/vim-peekaboo' "muestra registros
-Plug 'godlygeek/tabular', {'for': 'pandoc'}
+Plug 'godlygeek/tabular',
 Plug 'lambdalisue/suda.vim'
-Plug 'JuliaEditorSupport/julia-vim'
 
 Plug 'fatih/vim-go'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'DanilaMihailov/vim-wiki-tips'
-" Plug 'chrisbra/Colorizer'
-Plug 'Stautob/vim-fish'
-Plug 'kana/vim-textobj-user'
-Plug 'bps/vim-textobj-python' "af, ac
-" Plug 'thalesmello/vim-textobj-multiline-str' "aQ
-Plug 'beloglazov/vim-textobj-quotes' "aq
-Plug 'sgur/vim-textobj-parameter' "a,
-Plug 'kana/vim-textobj-entire' "ae
-Plug 'Julian/vim-textobj-variable-segment' "av
 
-Plug 'honza/vim-snippets',
-Plug 'SirVer/ultisnips',
+Plug 'nvim-telescope/telescope.nvim'
+" Plug 'junegunn/fzf'
+" Plug 'junegunn/fzf.vim'
+
+
+" Plug 'DanilaMihailov/vim-wiki-tips'
+" Plug 'chrisbra/Colorizer'
+" Plug 'Stautob/vim-fish'
+" Plug 'kana/vim-textobj-user'
+" Plug 'bps/vim-textobj-python' "af, ac
+" Plug 'thalesmello/vim-textobj-multiline-str' "aQ
+" Plug 'beloglazov/vim-textobj-quotes' "aq
+" Plug 'sgur/vim-textobj-parameter' "a,
+" Plug 'kana/vim-textobj-entire' "ae
+" Plug 'Julian/vim-textobj-variable-segment' "av
+
+" Plug 'JuliaEditorSupport/julia-vim'
 Plug 'vim-pandoc/vim-pandoc-syntax'
+
+" Plug 'honza/vim-snippets',
+" Plug 'SirVer/ultisnips',
 Plug 'AndrewRadev/inline_edit.vim', {'for': ['pandoc','tex']}
 " Plug 'KeitaNakamura/tex-conceal.vim', {'for': ['tex', 'pandoc']}
 Plug '~/.config/nvim/plugged/marco-conceal.vim', {'for': ['tex', 'pandoc']}
@@ -41,14 +68,13 @@ Plug 'lervag/vimtex', {'for': 'tex'}
 
 Plug 'voldikss/vim-floaterm'
 Plug 'justinmk/vim-sneak'
-Plug 'Shougo/echodoc.vim'
+" Plug 'Shougo/echodoc.vim'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'rbgrouleff/bclose.vim'
 Plug 'junegunn/goyo.vim'
 
 Plug 'kassio/neoterm'
 Plug 'roxma/nvim-yarp'
-" Plug 'felixhummel/setcolors.vim'
 Plug 'mbbill/undotree'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -58,26 +84,184 @@ Plug 'Konfekt/vim-CtrlXA'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-Plug 'fs111/pydoc.vim', {'for': 'python'}
+" Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'crivaronicolini/pydoc.vim', {'for':'python'}
 
 " utiles pero no da usarlos todo el tiempo
 Plug 'tpope/vim-unimpaired'
 " Plug 'frazrepo/vim-rainbow'
 Plug 'tweekmonster/startuptime.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'neoclide/coc-snippets'
 " Plug 'rstacruz/vim-coc-settings'
 call plug#end()
 
+set termguicolors
 
+lua <<EOF
+
+
+require'nvim-treesitter.configs'.setup {
+}
+
+require('Comment').setup()
+require('gitsigns').setup()
+require'colorizer'.setup(nil, { css = true; })
+require "lsp_signature".setup({floating_window=false})
+
+local nvim_lsp = require('lspconfig')
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  local opts = { noremap=true, silent=true }
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  -- buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'gh', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  -- buf_set_keymap('n', 'gH', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  -- buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  -- buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<space>rr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
+end
+
+-- -- Use a loop to conveniently call 'setup' on multiple servers and
+-- -- map buffer local keybindings when the language server attaches
+-- local servers = { 'pyright', 'rust_analyzer', 'tsserver' }
+-- for _, lsp in ipairs(servers) do
+--   nvim_lsp[lsp].setup {
+--     on_attach = on_attach,
+--     flags = {
+--       debounce_text_changes = 150,
+--     }
+--   }
+-- end
+--
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+require'lspconfig'.pyright.setup{cmd={"/home/marco/.npm-packages/bin/pyright-langserver", "--stdio" }, on_attach=on_attach}
+require'lspconfig'.vimls.setup{cmd={"/home/marco/.npm-packages/bin/vim-language-server", "--stdio" }, on_attach=on_attach}
+require'lspconfig'.julials.setup{ on_attach=on_attach, capabilities=capabilities}
+require'lspconfig'.svelte.setup{cmd={"/home/marco/.npm-packages/bin/svelteserver","--stdio" }, on_attach=on_attach, capabilities=capabilities}
+
+require'nvim-treesitter.configs'.setup {
+    ensure_installed = {"python","julia", "svelte","javascript","lua","latex","bibtex","json","html","go","fish","css","cmake","bash","vim"},
+    sync_install = false,
+    highlight = { enable = true, },
+    refactor = { highlight_definitions = { enable = true }, },
+    textobjects = {
+    select = {
+        enable = true,
+        lookahead = true,
+        keymaps = {
+          ["af"] = "@function.outer",
+          ["if"] = "@function.inner",
+          ["ac"] = "@class.outer",
+          ["ic"] = "@class.inner",
+          ["i,"] = "@parameter.inner",
+          ["a,"] = "@parameter.outer",
+    },
+  },
+},
+}
+
+local luasnip = require'luasnip'
+
+local cmp = require'cmp'
+
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      -- vim.fn["UltiSnips#Anon"](args.body)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
+  mapping = {
+    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+    ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+    ['<C-e>'] = cmp.mapping({
+      i = cmp.mapping.abort(),
+      c = cmp.mapping.close(),
+    }),
+    ['<Tab>'] = function(fallback)
+      if luasnip.expand_or_jumpable() then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true, true), '')
+      elseif cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end,
+    ['<S-Tab>'] = function(fallback)
+      if luasnip.jumpable(-1) then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), '')
+      elseif cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end,
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    -- { name = 'ultisnips' }, -- For ultisnips users.
+    { name = 'luasnip' }, -- For ultisnips users.
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+require("flutter-tools").setup{} -- use defaults
+require("luasnip.loaders.from_vscode").load()
+-- require("luasnip.loaders.from_vscode").load({paths={"./plugged/awesome-flutter-snippets"}})
+
+-- -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+-- cmp.setup.cmdline('/', {
+--   sources = {
+--     { name = 'buffer' }
+--   }
+-- })
+--
+-- -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+-- cmp.setup.cmdline(':', {
+--   sources = cmp.config.sources({
+--     { name = 'path' }
+--   }, {
+--     { name = 'cmdline' }
+--   })
+-- })
+--
+-- Setup lspconfig.
+-- local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+-- require('lspconfig')['vimls'].setup { capabilities = capabilities }
+-- require('lspconfig')['pyright'].setup { capabilities = capabilities }
+EOF
+
+" let g:echodoc#enable_at_startup = 1
+" let g:echodoc#type = 'floating'
+" highlight link EchoDocFloat Pmenu
 
 let autopep8_on_save = 0
 
 filetype plugin indent on
-syntax enable
+" syntax enable
 
-set termguicolors
 if &term == 'xterm-kitty'
     hi Normal ctermbg=None
     hi SignColumn ctermbg=None
@@ -85,10 +269,10 @@ else
     set background=dark
 " set background=light
 endif
-let &background =strftime("%H") > 5  && strftime("%H") < 18 ? "light" : "dark"
-colorscheme PaperColor
 
-lua require('gitsigns').setup()
+colorscheme neopapercolor
+let &background =strftime("%H") > 5  && strftime("%H") < 20 ? "light" : "dark"
+
 
 let g:vimtex_complete_bib = {'simple' : 1}
 let g:latex_to_unicode_tab = 0
@@ -97,7 +281,7 @@ let g:latex_to_unicode_auto = 1
 let g:python3_host_prog = '/usr/bin/python3'
 
 
-let g:coc_global_extensions = ['coc-python', 'coc-go']
+" let g:coc_global_extensions = ['coc-python', 'coc-go']
 
 let g:tex_flavor = 'latex'
 let g:go_highlight_types = 1
@@ -106,20 +290,20 @@ let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
 let g:go_highlight_operators = 1
 
-call textobj#user#map('multilinestr', {
-\   'python': {
-\     'select-a': 'aQ',
-\     'select-i': 'iQ',
-\   }
-\ })
-let g:textobj_multilinestr_no_default_key_mappings = 1
-
+" call textobj#user#map('multilinestr', {
+" \   'python': {
+" \     'select-a': 'aQ',
+" \     'select-i': 'iQ',
+" \   }
+" \ })
+" let g:textobj_multilinestr_no_default_key_mappings = 1
+"
 let g:tex_conceal="abdgm"
 " let g:tex_conceal_frac = M
 
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+" let g:UltiSnipsExpandTrigger = '<tab>'
+" let g:UltiSnipsJumpForwardTrigger = '<tab>'
+" let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/nvim/UltiSnips']
 
 let g:sneak#s_next = 1
@@ -129,7 +313,8 @@ let g:markdown_fenced_languages = ['go', 'python']
 let g:pandoc#syntax#codeblocks#embeds#langs = ['python']
 let g:pandoc#syntax#conceal#urls = 1
 
-let g:neoterm_automap_keys = 0
+let g:pydoc_perform_mappings = 0
+" let g:neoterm_automap_keys = 0
 
 let g:rainbow_active = 1
 
@@ -141,49 +326,33 @@ let mapleader=" "
 
 let g:Hexokinase_highlighters = ['backgroundfull']
 set ignorecase
+set smartcase
 set spellsuggest=7
 set cul
-set hidden
-set number
 set confirm
 set linebreak
-set incsearch
+set breakindent
 set noswapfile
 set lazyredraw
-set noshowmode
-set writebackup
-set smartcase
 set path+=**
-set breakindent
 set expandtab
-set textwidth=0
-set tabstop=8
 set softtabstop=4
 set shiftwidth=4
 set scrolloff=12
-set autoindent
-set matchtime=1
 set mouse=a
-set laststatus=2
-set backspace=indent,eol,start
-set inccommand=nosplit
 set completeopt-=preview
 set completeopt+=menuone
-" set completeopt+=noinsert
 set shortmess+=c
 set wildmode=longest,full
 set virtualedit=block
 set wildignorecase
 set splitright
 set include=
-set history=500
-set formatoptions+=jon "default tcqj
+set formatoptions=tcoqnj "default tcqj
 set nonumber
 set signcolumn=yes:1
-set autoread
 set autowriteall
 
-set undolevels=500
 set undofile
 set undodir^=/home/marco/.config/nvim/cache/undo
 set backup
@@ -191,14 +360,11 @@ set backupdir^=/home/marco/.config/nvim/cache/backup
 
 " sacados del vimrc de tom ryder (misc/tejr)
 set nrformats+=alpha
-set grepprg=grep\ -HnRs\ --exclude='.git*'
 
 "para que vim recuerde donde quedo
-set shada='50,<100,:100,%,n~/.vim/shada
+set shada='300,<100,:100,%,n~/.vim/shada
 
 
-packadd! matchit
-" runtime macros/matchit.vim
 au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=100, on_visual=false}
 
 """""MAPPINGS"""""
@@ -215,19 +381,27 @@ xnoremap <leader>e :InlineEdit<cr>
 " inoremap <c-e> <esc>:InlineEdit<cr>a
 
 
-nnoremap <tab> gt
+" nnoremap <tab> gt
 
 """FZF"""
 autocmd! FileType fzf tnoremap <Esc> <C-c>
 
-nnoremap 'f :Files<CR>
-nnoremap 'g :GFiles<CR>
-nnoremap 'b :Buffers<CR>
-nnoremap 'l :Lines<CR>
-nnoremap 'h :History<CR>
-nnoremap 's :Snippets<CR>
-nnoremap '\ :Rg 
+nnoremap 'f <cmd>Telescope find_files<CR>
+nnoremap 'g <cmd>Telescope git_files<CR>
+nnoremap 'b <cmd>Telescope buffers<CR>
+nnoremap 'l <cmd>Telescope current_buffer_fuzzy_find<CR>
+nnoremap 'h <cmd>Telescope oldfiles<CR>
+nnoremap 's <cmd>Telescope Snippets<CR>
+nnoremap '\ <cmd>Telescope live_grep<CR> 
 
+" nnoremap 'f :Files<CR>
+" nnoremap 'g :GFiles<CR>
+" nnoremap 'b :Buffers<CR>
+" nnoremap 'l :Lines<CR>
+" nnoremap 'h :History<CR>
+" nnoremap 's :Snippets<CR>
+" nnoremap '\ :Rg 
+"
 source ~/.config/nvim/bookmarks.vim
 source ~/.config/nvim/letrasgriegas.vim
 
@@ -276,14 +450,13 @@ vnoremap <Leader>y "+y
 vnoremap <Leader>d "+d
 
 "usa lead p para pegar
-nmap <Leader>p :set paste<CR>"+]p:set nopaste<CR>
-nmap <Leader>P :set paste<CR>"+]P:set nopaste<CR>
+nmap <Leader>p :set paste<CR>o"+]p:set nopaste<CR>
+nmap <Leader>P :set paste<CR>o"+]P:set nopaste<CR>
 vmap <Leader>p :<C-u>set paste<CR>"+]p:<C-u>set nopaste<CR>
 vmap <Leader>P :<C-u>set paste<CR>"+]P:<C-u>set nopaste<CR>
 
 " busca la seleccion con / y abajo con ?
-vmap / y:execute "/".escape(@",'[]/\.*')<CR>
-vmap ? y:execute "?".escape(@",'[]/\.*')<CR>
+vmap * y:execute "/".escape(@",'[]/\.*')<CR>
 " reemplaza la seleccion
 vmap <F4> y:execute "%s/".escape(@",'[]/')."//gc"<Left><Left><Left><Left>
 
@@ -291,7 +464,7 @@ vmap <F4> y:execute "%s/".escape(@",'[]/')."//gc"<Left><Left><Left><Left>
 nnoremap Q @@
 
 "changes directory to the current file's location
-nnoremap <Leader>c :<C-U>cd %:h<CR>:pwd<CR>
+nnoremap <Leader>cc :<C-U>cd %:h<CR>:pwd<CR>
 
 nnoremap <silent><Leader>C :let @+=expand('%:p:h')<CR>:echo "copied current filepath to clipboard"<CR>
 
@@ -331,6 +504,7 @@ cnoreabbrev h vert h
 cmap w!! w !sudo tee % >/dev/null
 
 "usa H para buscar info con plugin better K y M para unir líneas
+" nmap H <Plug>ShowPyDoc4
 nnoremap <silent> H K<C-W>L
 nnoremap M J
 
@@ -344,8 +518,6 @@ nnoremap J 6j
 vnoremap K 6k
 vnoremap J 6j
 
-"usa Y para copiar hasta el final de linea como D y A
-nnoremap Y y$
 "P es poner al final, recupero P con gP
 nnoremap P $p
 " lo mismo con V
@@ -383,7 +555,8 @@ nnoremap <silent> <leader>t ]S1z=:spellr<CR>
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 "dice a que syntax group pertenece la palabra bajo el cursor
-" nnoremap <silent> <leader>h :call SynGroup()<CR>
+" nnoremap <silent> <leader>H :call SynGroup()<CR>
+nnoremap <silent> <leader>H :TSHighlightCapturesUnderCursor<CR>
 
 "F9 para repasar spelling
 nnoremap <F9> :silent setlocal spell! spelllang=es<CR>
@@ -442,13 +615,13 @@ let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status
 
 
 " Make sure Vim returns to the same line when you reopen a file.
-augroup line_return
-    au!
-    au BufReadPost *
-        \ if line("'\"") > 0 && line("'\"") <= line("$") |
-        \     execute 'normal! g`"zvzz' |
-        \ endif
-augroup END
+" augroup line_return
+"     au!
+"     au BufReadPost *
+"         \ if line("'\"") > 0 && line("'\"") <= line("$") |
+"         \     execute 'normal! g`"zvzz' |
+"         \ endif
+" augroup END
 
 function! Do_math()
     " looks for equals sign, and sends the expression to qalc

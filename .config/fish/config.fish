@@ -7,6 +7,7 @@ bind \ek forward-word
 bind \eH beginning-of-line
 bind \eL end-of-line
 bind \eo 'lfcd; commandline -f repaint'
+bind -e \co
 bind \cx 'fg 2>/dev/null'
 bind \ed 'sd; commandline -f repaint'
 bind \ch 'builtin cd ..; commandline -f repaint'
@@ -16,6 +17,7 @@ alias ipy "ipython --profile=marco"
 alias g09 "wine /home/marco/.wine/drive_c/G09W/g09w.exe $argv"
 alias gview "wine /home/marco/.wine/drive_c/G09W/gview.exe $argv"
 alias pluto "julia -e 'using Pluto;Pluto.run()'"
+alias julia "julia -J/home/marco/.config/julia/ohmyrepl.so"
 alias bat 'bat $argv --pager="less -r"'
 alias mvim 'nvim -u ~/.config/nvim/minimal.vim $argv'
 alias jup2md 'jupyter nbconvert *.ipynb --to markdown '
@@ -31,15 +33,11 @@ alias q 'qalc -i'
 alias tls 'tlmgr search --global --file "/$argv"'
 alias tli 'tlmgr install $argv'
 
+abbr -a gs 'git status'
+abbr -a gp 'git pull'
+abbr -a gP 'git push'
+set -eg EDITOR
 
 fzf_key_bindings
-# bind \cu 'set fish_key_bindings fish_vi_key_bindings'
-# bind \cU 'set fish_key_bindings fish_default_key_bindings'
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-# eval /home/marco/repos/miniconda3/bin/conda "shell.fish" "hook" $argv | source
-# <<< conda initialize <<<
-
-# function __conda_add_prompt
-# end
+set PATH /home/marco/bin/ /home/marco/.local/bin /home/marco/bin /home/marco/.local/bin /usr/local/bin /usr/bin /var/lib/snapd/snap/bin /usr/local/sbin /var/lib/flatpak/exports/bin /usr/bin/site_perl /usr/bin/vendor_perl /usr/bin/core_perl /home/marco/Android/Sdk/emulator /home/marco/Android/Sdk/tools
