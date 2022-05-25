@@ -1,5 +1,10 @@
 call plug#begin()
 
+Plug 'chentau/marks.nvim'
+
+Plug 'axvr/org.vim'
+Plug 'normen/vim-pio'
+
 Plug 'Neevash/awesome-flutter-snippets'
 Plug 'akinsho/flutter-tools.nvim'
 
@@ -11,9 +16,9 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
-Plug 'saadparwaiz1/cmp_luasnip'
-Plug 'L3MON4D3/LuaSnip'
-" Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+" Plug 'saadparwaiz1/cmp_luasnip'
+" Plug 'L3MON4D3/LuaSnip'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'ray-x/lsp_signature.nvim'
 
 Plug '~/.config/nvim/plugged/nvim-highlite'
@@ -58,8 +63,11 @@ Plug 'nvim-telescope/telescope.nvim'
 " Plug 'JuliaEditorSupport/julia-vim'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 
-" Plug 'honza/vim-snippets',
-" Plug 'SirVer/ultisnips',
+
+
+Plug 'honza/vim-snippets',
+Plug 'SirVer/ultisnips'
+Plug 'dkarter/bullets.vim', {'for': 'pandoc'}
 Plug 'AndrewRadev/inline_edit.vim', {'for': ['pandoc','tex']}
 " Plug 'KeitaNakamura/tex-conceal.vim', {'for': ['tex', 'pandoc']}
 Plug '~/.config/nvim/plugged/marco-conceal.vim', {'for': ['tex', 'pandoc']}
@@ -99,11 +107,6 @@ call plug#end()
 set termguicolors
 
 lua <<EOF
-
-
-require'nvim-treesitter.configs'.setup {
-}
-
 require('Comment').setup()
 require('gitsigns').setup()
 require'colorizer'.setup(nil, { css = true; })
@@ -123,7 +126,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'gh', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  -- buf_set_keymap('n', 'gH', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', 'gH', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
   -- buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
@@ -131,9 +134,9 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap('n', '<space>rr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.open_float()<CR>', opts)
+  -- buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  -- buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
@@ -156,9 +159,12 @@ require'lspconfig'.pyright.setup{cmd={"/home/marco/.npm-packages/bin/pyright-lan
 require'lspconfig'.vimls.setup{cmd={"/home/marco/.npm-packages/bin/vim-language-server", "--stdio" }, on_attach=on_attach}
 require'lspconfig'.julials.setup{ on_attach=on_attach, capabilities=capabilities}
 require'lspconfig'.svelte.setup{cmd={"/home/marco/.npm-packages/bin/svelteserver","--stdio" }, on_attach=on_attach, capabilities=capabilities}
+-- require'lspconfig'.ccls.setup{on_attach=on_attach, capabilities=capabilities}
+require'lspconfig'.clangd.setup{on_attach=on_attach, capabilities=capabilities}
 
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = {"python","julia", "svelte","javascript","lua","latex","bibtex","json","html","go","fish","css","cmake","bash","vim"},
+    ensure_installed = {"python","julia",
+    "svelte","javascript","lua","latex","bibtex","json","html","go","fish","css","cmake","bash","vim","cpp"},
     sync_install = false,
     highlight = { enable = true, },
     refactor = { highlight_definitions = { enable = true }, },
@@ -178,15 +184,15 @@ require'nvim-treesitter.configs'.setup {
 },
 }
 
-local luasnip = require'luasnip'
+-- local luasnip = require'luasnip'
 
 local cmp = require'cmp'
 
 cmp.setup({
   snippet = {
     expand = function(args)
-      -- vim.fn["UltiSnips#Anon"](args.body)
-      require('luasnip').lsp_expand(args.body)
+      vim.fn["UltiSnips#Anon"](args.body)
+      -- require('luasnip').lsp_expand(args.body)
     end,
   },
   mapping = {
@@ -198,36 +204,39 @@ cmp.setup({
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     }),
-    ['<Tab>'] = function(fallback)
-      if luasnip.expand_or_jumpable() then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true, true), '')
-      elseif cmp.visible() then
-        cmp.select_next_item()
-      else
-        fallback()
-      end
-    end,
-    ['<S-Tab>'] = function(fallback)
-      if luasnip.jumpable(-1) then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), '')
-      elseif cmp.visible() then
-        cmp.select_prev_item()
-      else
-        fallback()
-      end
-    end,
+    -- ['<Tab>'] = function(fallback)
+    --   if luasnip.expand_or_jumpable() then
+    --     vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true, true), '')
+    --   elseif cmp.visible() then
+    --     cmp.select_next_item()
+    --   else
+    --     fallback()
+    --   end
+    -- end,
+    -- ['<S-Tab>'] = function(fallback)
+    --   if luasnip.jumpable(-1) then
+    --     vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), '')
+    --   elseif cmp.visible() then
+    --     cmp.select_prev_item()
+    --   else
+    --     fallback()
+    --   end
+    -- end,
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-    -- { name = 'ultisnips' }, -- For ultisnips users.
-    { name = 'luasnip' }, -- For ultisnips users.
-  }, {
+    { name = 'ultisnips' }, -- For ultisnips users.
+    -- { name = 'luasnip' }, -- For ultisnips users.
     { name = 'buffer' },
+    { name = 'path' },
+  }, {
   })
 })
 
+
 require("flutter-tools").setup{} -- use defaults
-require("luasnip.loaders.from_vscode").load()
+-- require("luasnip.loaders.from_vscode").load()
+-- require("luasnip.loaders.from_snipmate").load()
 -- require("luasnip.loaders.from_vscode").load({paths={"./plugged/awesome-flutter-snippets"}})
 
 -- -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
@@ -301,9 +310,9 @@ let g:go_highlight_operators = 1
 let g:tex_conceal="abdgm"
 " let g:tex_conceal_frac = M
 
-" let g:UltiSnipsExpandTrigger = '<tab>'
-" let g:UltiSnipsJumpForwardTrigger = '<tab>'
-" let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/nvim/UltiSnips']
 
 let g:sneak#s_next = 1
@@ -312,6 +321,7 @@ let g:sneak#s_next = 1
 let g:markdown_fenced_languages = ['go', 'python']
 let g:pandoc#syntax#codeblocks#embeds#langs = ['python']
 let g:pandoc#syntax#conceal#urls = 1
+let g:bullets_enabled_file_types = ['pandoc', 'markdown', 'text', 'gitcommit']
 
 let g:pydoc_perform_mappings = 0
 " let g:neoterm_automap_keys = 0
@@ -538,6 +548,7 @@ vnoremap > >gv
 " de VIMRC
 nnoremap <C-r> :source $MYVIMRC<CR>:AirlineRefresh<CR>
 nnoremap <silent><leader>v :call Do_math()<CR>
+vnoremap <silent><leader>v :call Do_math_v()<CR>
 autocmd! BufWritePost $MYVIMRC source %
 nnoremap <silent> 'V :edit $MYVIMRC<CR>
 au Bufread $MYVIMRC nnoremap <buffer> gx :call Go_to_plugin_url()<CR>
@@ -630,11 +641,38 @@ function! Do_math()
     " sin(0) +123.3- 2^3+cos(22*pi/180) = 
     let cursor = getcurpos()
     let expr = substitute(getline("."), "=.*", "", "")
-
     let result = system("qalc -t '" . expr . "'")[:-2]
     call append(".", result)
     normal! J
     call setpos('.', cursor)
+endfunction
+
+function! Do_math_v() range
+    " looks for equals sign, and sends the expression to qalc
+    " appends the result to the line
+    " test expression:
+    " sin(0) +123.3- 2^3+cos(22*pi/180) = 
+    let cursor = getcurpos()
+    let n = @n
+    silent! normal gv"ny
+    " echo "Word count:" . system("echo '" . @n . "' | wc -w")
+    " call system("echo " . @n . "> /tmp/qalc")
+    " let result = system("qalc -t -set 'decimal comma off'  '" . @n . "'")[:-2]
+    call writefile(getreg('n',1,1) + ["\nsave definitions"], "/tmp/qalc")
+    let result = system("qalc -t -f /tmp/qalc")[:-2]
+    let @n = n
+    call append("'>+1", split(result,'\n'))
+    normal! '>
+    " bonus: restores the visual selection
+    " normal! gv   "
+
+    " let cursor = getcurpos()
+    " let expr = substitute(getline("."), "=.*", "", "")
+    " let result = system("qalc -t '" . expr . "'")[:-2]
+    " call append(".", result)
+    " normal! J
+    " call setpos('.', cursor)
+    "
 endfunction
 
 function! Go_to_plugin_url()

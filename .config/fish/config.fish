@@ -11,7 +11,11 @@ bind -e \co
 bind \cx 'fg 2>/dev/null'
 bind \ed 'sd; commandline -f repaint'
 bind \ch 'builtin cd ..; commandline -f repaint'
+# bind \ef fzf-file-widget
+# bind \ec fzf-cd-widget
+# bind \eh fzf-history-widget
 
+alias n "nvim"
 alias clip "xsel -ib"
 alias ipy "ipython --profile=marco"
 alias g09 "wine /home/marco/.wine/drive_c/G09W/g09w.exe $argv"
@@ -33,11 +37,11 @@ alias q 'qalc -i'
 alias tls 'tlmgr search --global --file "/$argv"'
 alias tli 'tlmgr install $argv'
 
-abbr -a gs 'git status'
+# abbr -a gs 'git status'
 abbr -a gp 'git pull'
 abbr -a gP 'git push'
 set -eg EDITOR
 
 fzf_key_bindings
 
-set PATH /home/marco/bin/ /home/marco/.local/bin /home/marco/bin /home/marco/.local/bin /usr/local/bin /usr/bin /var/lib/snapd/snap/bin /usr/local/sbin /var/lib/flatpak/exports/bin /usr/bin/site_perl /usr/bin/vendor_perl /usr/bin/core_perl /home/marco/Android/Sdk/emulator /home/marco/Android/Sdk/tools
+set PATH /home/marco/bin/ /home/marco/.local/bin /home/marco/bin /home/marco/.local/bin /usr/local/bin /usr/bin /var/lib/snapd/snap/bin /usr/local/sbin /var/lib/flatpak/exports/bin /usr/bin/site_perl /usr/bin/vendor_perl /usr/bin/core_perl /home/marco/Android/Sdk/emulator /home/marco/Android/Sdk/tools /home/marco/.platformio/penv/bin
