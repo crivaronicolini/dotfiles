@@ -18,11 +18,12 @@ def math():
 endglobal
 
 # ---MARCO
-snippet brk "raya" iA
+snippet duu "dunderline" Ai
+\underline{\underline $1 } $0
+endsnippet
 
----
-
-$0
+snippet uu "underline" Ai
+\underline $0
 endsnippet
 
 snippet cra "con resp" 
@@ -93,6 +94,12 @@ snippet dag "dagger" iA
 ^\dagger$0
 endsnippet
 
+snippet brk "raya" iA
+
+---
+
+$0
+endsnippet
 # -------- MARCO
 
 priority 100
@@ -124,7 +131,7 @@ endsnippet
 
 context "math()"
 snippet vh "sombrero sobre var" iA
-\\hat{$1}$0
+\\hat{$1} $0
 endsnippet
 
 context "math()"

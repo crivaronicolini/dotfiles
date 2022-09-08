@@ -1,9 +1,9 @@
 imap <c-v>a \alpha
 imap <c-v>b \beta
-imap <c-v>c \gamma
 imap <c-v>d \delta
 imap <c-v>e \epsilon
 imap <c-v>f \phi
+imap <c-v>g \gamma
 imap <c-v>h \theta
 imap <c-v>k \kappa
 imap <c-v>l \lambda
@@ -16,14 +16,15 @@ imap <c-v>s \sigma
 imap <c-v>t \tau
 imap <c-v>x \chi
 imap <c-v>y \psi
+imap <c-v>z \zeta
 
 imap <c-v>A \Alpha
 imap <c-v>B \Beta
-imap <c-v>C \Gamma
 imap <c-v>D \Delta
 imap <c-v>E \Epsilon
 imap <c-v>F \Phi
 imap <c-v>H \Theta
+imap <c-v>G \Gamma
 imap <c-v>K \Kappa
 imap <c-v>L \Lambda
 imap <c-v>M \Mu
@@ -35,4 +36,5 @@ imap <c-v>S \Sigma
 imap <c-v>T \Tau
 imap <c-v>X \Chi
 imap <c-v>U \Psi
+imap <c-v>Z \Zeta
 
