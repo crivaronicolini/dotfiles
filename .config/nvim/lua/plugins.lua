@@ -1,8 +1,50 @@
 require "lsp_signature".setup({ floating_window = false })
 require 'colorizer'.setup(nil, { css = true; })
-require'Comment'.setup()
+require'Comment'.setup{}
 require'treesitter-context'.setup { mode = 'topline' }
 require('leap').set_default_keymaps()
+
+
+-- require('lualine').setup({
+--   options = {
+--     icons_enabled = true,
+--     theme = 'auto',
+--     component_separators = { left = '', right = '' },
+--     section_separators = { left = '', right = '' },
+--     disabled_filetypes = {
+--       statusline = {},
+--       winbar = {},
+--     },
+--     ignore_focus = {},
+--     always_divide_middle = true,
+--     globalstatus = vim.go.laststatus == 3,
+--     refresh = {
+--       statusline = 1000,
+--       tabline = 1000,
+--       winbar = 1000,
+--     },
+--   },
+--   sections = {
+--     lualine_a = { 'mode' },
+--     lualine_b = { 'branch', 'diff', 'diagnostics' },
+--     lualine_c = { { 'filename', path = 1 } },
+--     lualine_x = { 'encoding', 'fileformat', 'filetype' },
+--     lualine_y = { 'progress' },
+--     lualine_z = { 'location' },
+--   },
+--   inactive_sections = {
+--     lualine_a = {},
+--     lualine_b = {},
+--     lualine_c = { 'filename'},
+--     lualine_x = { 'location' },
+--     lualine_y = {},
+--     lualine_z = {},
+--   },
+--   tabline = {},
+--   winbar = {},
+--   inactive_winbar = {},
+--   extensions = {},
+-- })
 
 require('lualine').setup({
     options = {
@@ -10,30 +52,34 @@ require('lualine').setup({
         section_separators = '',
         component_separators = '',
         globalstatus = true,
-        sections = {
-            lualine_a = {
-                { 'diagnostics',
-                    sources = { 'nvim_lsp' },
-
-                    -- Displays diagnostics for the defined severity types
-                    sections = { 'error', 'warn', 'info', 'hint' },
-
-                    diagnostics_color = {
-                      -- Same values as the general color option can be used here.
-                      error = 'DiagnosticError', -- Changes diagnostics' error color.
-                      warn  = 'DiagnosticWarn',  -- Changes diagnostics' warn color.
-                      info  = 'DiagnosticInfo',  -- Changes diagnostics' info color.
-                      hint  = 'DiagnosticHint',  -- Changes diagnostics' hint color.
-                    },
-                    symbols = {error = 'E', warn = 'W', info = 'I', hint = 'H'},
-                    colored = true,           -- Displays diagnostics status in color if set to true.
-                    update_in_insert = false, -- Update diagnostics in insert mode.
-                    always_visible = false,   -- Show diagnostics even if there are none.
-                }
-            },
-            lualine_z = { 'g:asyncrun_status' }
+        refresh = { statusline = 100, },
+    },
+    sections = {
+        lualine_b = {
+            'branch',
+            'diff',
+            {
+            'diagnostics',
+                sources = { 'nvim_lsp' },
+                -- Displays diagnostics for the defined severity types
+                sections = { 'error', 'warn', 'info', 'hint' },
+                diagnostics_color = {
+                  -- Same values as the general color option can be used here.
+                  error = 'DiagnosticError', -- Changes diagnostics' error color.
+                  warn  = 'DiagnosticWarn',  -- Changes diagnostics' warn color.
+                  info  = 'DiagnosticInfo',  -- Changes diagnostics' info color.
+                  hint  = 'DiagnosticHint',  -- Changes diagnostics' hint color.
+                },
+                symbols = {error = 'E', warn = 'W', info = 'I', hint = 'H'},
+                colored = true,           -- Displays diagnostics status in color if set to true.
+                update_in_insert = false, -- Update diagnostics in insert mode.
+                always_visible = false,   -- Show diagnostics even if there are none.
         }
-    }
+        },
+        lualine_c = { { 'filename', path = 1 } },
+        lualine_z = { { 'location', 'g:asyncrun_status' } }
+    },
+    extensions = {'fugitive'},
 })
 
 require('gitsigns').setup {
