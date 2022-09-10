@@ -289,6 +289,10 @@ vnoremap <silent><leader>v :call Do_math_v()<CR>
 autocmd! BufWritePost $MYVIMRC source %
 nnoremap <silent> 'V :edit $MYVIMRC<CR>
 au Bufread $MYVIMRC nnoremap <buffer> gx :call Go_to_plugin_url()<CR>
+
+" hay que correr 
+" config core.worktree "/home/marco/"
+" config core.bare false
 au Bufread $MYVIMRC :call FugitiveDetect(expand('~/.cfg'))
 
 nnoremap <silent> 'F :edit ~/.config/fish/config.fish<CR>
