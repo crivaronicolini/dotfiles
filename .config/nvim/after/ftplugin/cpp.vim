@@ -1,4 +1,5 @@
-nnoremap <silent> <buffer> <CR> :vsplit term://make -C .. upload<CR>
-nnoremap <silent> <buffer> <Backspace> :vert AsyncRun -mode=term -pos=right -save=2 make -C .. all<CR>
-nnoremap <silent> <buffer> <F6> :vsplit term://make -C .. serial<CR>
+let command = ':vert AsyncRun -cwd=<root> -mode=term -pos=right -save=2 '
+nnoremap <silent> <buffer> <Backspace> :exec command . 'make all'<CR>
+nnoremap <silent> <buffer> <CR> :exec command . 'make upload'<CR> 
+nnoremap <silent> <buffer> <F6> :exec command . 'make serial'<CR>
 

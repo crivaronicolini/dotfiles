@@ -1,55 +1,19 @@
-require "lsp_signature".setup({ floating_window = false })
-require 'colorizer'.setup(nil, { css = true; })
-require'Comment'.setup{}
+require'lsp_signature'.setup({ floating_window = false })
+require'colorizer'.setup(nil, { css = true; })
+require'Comment'.setup({})
 require'treesitter-context'.setup { mode = 'topline' }
--- require('leap').set_default_keymaps()
-require('hop').setup()
+require'nvim-surround'.setup()
+require'hop'.setup()
 
+require'marks'.setup {
+    default_mappings = true,
+    signs = true,
+    mappings = {}
+}
 
--- require('lualine').setup({
---   options = {
---     icons_enabled = true,
---     theme = 'auto',
---     component_separators = { left = '', right = '' },
---     section_separators = { left = '', right = '' },
---     disabled_filetypes = {
---       statusline = {},
---       winbar = {},
---     },
---     ignore_focus = {},
---     always_divide_middle = true,
---     globalstatus = vim.go.laststatus == 3,
---     refresh = {
---       statusline = 1000,
---       tabline = 1000,
---       winbar = 1000,
---     },
---   },
---   sections = {
---     lualine_a = { 'mode' },
---     lualine_b = { 'branch', 'diff', 'diagnostics' },
---     lualine_c = { { 'filename', path = 1 } },
---     lualine_x = { 'encoding', 'fileformat', 'filetype' },
---     lualine_y = { 'progress' },
---     lualine_z = { 'location' },
---   },
---   inactive_sections = {
---     lualine_a = {},
---     lualine_b = {},
---     lualine_c = { 'filename'},
---     lualine_x = { 'location' },
---     lualine_y = {},
---     lualine_z = {},
---   },
---   tabline = {},
---   winbar = {},
---   inactive_winbar = {},
---   extensions = {},
--- })
-
-require('lualine').setup({
+require'lualine'.setup({
     options = {
-        theme = "catppuccin",
+        theme = 'catppuccin',
         section_separators = '',
         component_separators = '',
         globalstatus = true,
@@ -83,7 +47,7 @@ require('lualine').setup({
     extensions = {'fugitive'},
 })
 
-require('gitsigns').setup {
+require'gitsigns'.setup({
     on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
 
@@ -122,10 +86,10 @@ require('gitsigns').setup {
         -- Text object
         map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
     end
-}
+})
 
 
-require('lspconfig')
+require'lspconfig'
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -156,35 +120,19 @@ local on_attach = function(client, bufnr)
 
 end
 
--- -- Use a loop to conveniently call 'setup' on multiple servers and
--- -- map buffer local keybindings when the language server attaches
--- local servers = { 'pyright', 'rust_analyzer', 'tsserver' }
--- for _, lsp in ipairs(servers) do
---   nvim_lsp[lsp].setup {
---     on_attach = on_attach,
---     flags = {
---       debounce_text_changes = 150,
---     }
---   }
--- end
---
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-require 'lspconfig'.pyright.setup { cmd = { "/home/marco/.npm-packages/bin/pyright-langserver", "--stdio" },
-    on_attach = on_attach }
-require 'lspconfig'.vimls.setup { cmd = { "/home/marco/.npm-packages/bin/vim-language-server", "--stdio" },
-    on_attach = on_attach }
-require 'lspconfig'.julials.setup { on_attach = on_attach, capabilities = capabilities }
-require 'lspconfig'.svelte.setup { cmd = { "/home/marco/.npm-packages/bin/svelteserver", "--stdio" }, on_attach = on_attach,
-    capabilities = capabilities }
--- require'lspconfig'.ccls.setup{on_attach=on_attach, capabilities=capabilities}
-require 'lspconfig'.clangd.setup { on_attach = on_attach, capabilities = capabilities }
-require 'lspconfig'.eslint.setup { on_attach = on_attach, capabilities = capabilities }
+local capabilities = require'cmp_nvim_lsp'.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+require'lspconfig'.pyright.setup { cmd = { '/home/marco/.npm-packages/bin/pyright-langserver', '--stdio' }, on_attach = on_attach }
+require'lspconfig'.vimls.setup { cmd = { '/home/marco/.npm-packages/bin/vim-language-server', '--stdio' }, on_attach = on_attach }
+require'lspconfig'.julials.setup { on_attach = on_attach, capabilities = capabilities }
+require'lspconfig'.svelte.setup { cmd = { '/home/marco/.npm-packages/bin/svelteserver', '--stdio' }, on_attach = on_attach, capabilities = capabilities }
+require'lspconfig'.clangd.setup { on_attach = on_attach, capabilities = capabilities }
+require'lspconfig'.eslint.setup { on_attach = on_attach, capabilities = capabilities }
 
 local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
+table.insert(runtime_path, 'lua/?.lua')
+table.insert(runtime_path, 'lua/?/init.lua')
 
-require 'lspconfig'.sumneko_lua.setup {
+require'lspconfig'.sumneko_lua.setup({
     settings = {
         Lua = {
             runtime = {
@@ -199,7 +147,7 @@ require 'lspconfig'.sumneko_lua.setup {
             },
             workspace = {
                 -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
+                library = vim.api.nvim_get_runtime_file('', true),
             },
             -- Do not send telemetry data containing a randomized but unique identifier
             telemetry = {
@@ -207,12 +155,12 @@ require 'lspconfig'.sumneko_lua.setup {
             },
         },
     },
-}
+})
 
 
-require 'nvim-treesitter.configs'.setup {
-    ensure_installed = { "python", "julia", "svelte", "javascript", "lua", "latex", "bibtex", "json", "html", "go",
-        "fish", "css", "cmake", "bash", "vim", "cpp" },
+require'nvim-treesitter.configs'.setup({
+    ensure_installed = { 'python', 'julia', 'svelte', 'javascript', 'lua', 'latex', 'bibtex', 'json', 'html', 'go',
+        'fish', 'css', 'cmake', 'bash', 'vim', 'cpp' },
     sync_install = false,
     highlight = { enable = true, },
     refactor = { highlight_definitions = { enable = true }, },
@@ -221,25 +169,25 @@ require 'nvim-treesitter.configs'.setup {
             enable = true,
             lookahead = true,
             keymaps = {
-                ["af"] = "@function.outer",
-                ["if"] = "@function.inner",
-                ["ac"] = "@class.outer",
-                ["ic"] = "@class.inner",
-                ["i,"] = "@parameter.inner",
-                ["a,"] = "@parameter.outer",
+                ['af'] = '@function.outer',
+                ['if'] = '@function.inner',
+                ['ac'] = '@class.outer',
+                ['ic'] = '@class.inner',
+                ['i,'] = '@parameter.inner',
+                ['a,'] = '@parameter.outer',
             },
         },
     },
-}
+})
 
 
-local cmp = require 'cmp'
+local cmp = require'cmp'
 
 cmp.setup({
     snippet = {
         expand = function(args)
-            vim.fn["UltiSnips#Anon"](args.body)
-            -- require('luasnip').lsp_expand(args.body)
+            vim.fn['UltiSnips#Anon'](args.body)
+            -- require'luasnip'.lsp_expand(args.body)
         end,
     },
     mapping = {
@@ -263,7 +211,7 @@ cmp.setup({
 
 
 
-require("catppuccin").setup({
+require'catppuccin'.setup({
     integrations = {
         aerial = false,
         barbar = false,
@@ -295,7 +243,6 @@ require("catppuccin").setup({
         vim_sneak = true,
         vimwiki = false,
         which_key = false,
-
         -- Special integrations, see https://github.com/catppuccin/nvim#special-integrations
         dap = {
             enabled = false,
@@ -308,21 +255,21 @@ require("catppuccin").setup({
         native_lsp = {
             enabled = true,
             virtual_text = {
-                errors = { "italic" },
-                hints = { "italic" },
-                warnings = { "italic" },
-                information = { "italic" },
+                errors = { 'italic' },
+                hints = { 'italic' },
+                warnings = { 'italic' },
+                information = { 'italic' },
             },
             underlines = {
-                errors = { "underline" },
-                hints = { "underline" },
-                warnings = { "underline" },
-                information = { "underline" },
+                errors = { 'underline' },
+                hints = { 'underline' },
+                warnings = { 'underline' },
+                information = { 'underline' },
             },
         },
         navic = {
             enabled = false,
-            custom_bg = "NONE",
+            custom_bg = 'NONE',
         },
         neotree = {
             enabled = false,
@@ -332,9 +279,9 @@ require("catppuccin").setup({
     },
 })
 
-vim.api.nvim_create_autocmd("OptionSet", {
-    pattern = "background",
+vim.api.nvim_create_autocmd('OptionSet', {
+    pattern = 'background',
     callback = function()
-        vim.cmd("Catppuccin " .. (vim.v.option_new == "light" and "latte" or "mocha"))
+        vim.cmd('Catppuccin ' .. (vim.v.option_new == 'light' and 'latte' or 'mocha'))
     end,
 })
