@@ -2,7 +2,8 @@ require "lsp_signature".setup({ floating_window = false })
 require 'colorizer'.setup(nil, { css = true; })
 require'Comment'.setup{}
 require'treesitter-context'.setup { mode = 'topline' }
-require('leap').set_default_keymaps()
+-- require('leap').set_default_keymaps()
+require('hop').setup()
 
 
 -- require('lualine').setup({

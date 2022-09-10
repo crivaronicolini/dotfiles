@@ -1,6 +1,7 @@
 call plug#begin()
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'ggandor/leap.nvim'
+" Plug 'ggandor/leap.nvim'
+Plug 'phaazon/hop.nvim'
 Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 
 Plug 'chentoast/marks.nvim'
@@ -178,8 +179,6 @@ nnoremap gk k
 nnoremap <leader>e :InlineEdit<cr>
 xnoremap <leader>e :InlineEdit<cr>
 
-nnoremap <tab> gt
-
 nnoremap 'f <cmd>Telescope find_files<CR>
 nnoremap 'g <cmd>Telescope git_files<CR>
 nnoremap 'b <cmd>Telescope buffers<CR>
@@ -355,6 +354,9 @@ nnoremap <leader>o :!zathura %:r.pdf >/dev/null 2>&1 &<CR><CR>
 
 cnoremap <c-n>  <down>
 cnoremap <c-p>  <up>
+
+nnoremap S :HopChar1<CR>
+nnoremap s :HopChar2<CR>
 
 vnoremap . :normal .<CR>
 
