@@ -130,7 +130,7 @@ set virtualedit=block
 set wildignorecase
 set splitright
 set include=
-set formatoptions=tcoqnj "default tcqj
+set formatoptions=tcrqnj "default tcqj
 set nonumber
 set signcolumn=yes:1
 set autowriteall
@@ -381,3 +381,7 @@ fun! Whitespace()
 endfun
 
 command! Whitespace call Whitespace()
+
+augroup pandoc_syntax
+    au! BufNewFile,BufFilePre,BufRead *.md set filetype=pandoc
+augroup END

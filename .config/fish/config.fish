@@ -44,4 +44,4 @@ set -eg EDITOR
 
 fzf_key_bindings
 
-set PATH /home/marco/bin/ /home/marco/.local/bin /home/marco/bin /home/marco/.local/bin /usr/local/bin /usr/bin /var/lib/snapd/snap/bin /usr/local/sbin /var/lib/flatpak/exports/bin /usr/bin/site_perl /usr/bin/vendor_perl /usr/bin/core_perl /home/marco/Android/Sdk/emulator /home/marco/Android/Sdk/tools /home/marco/.platformio/penv/bin /home/marco/.npm-packages/bin
+set PATH /home/marco/bin/ /home/marco/.local/bin /home/marco/bin /home/marco/.local/bin /usr/local/bin /usr/bin /var/lib/snapd/snap/bin /usr/local/sbin /var/lib/flatpak/exports/bin /usr/bin/site_perl /usr/bin/vendor_perl /usr/bin/core_perl /home/marco/Android/Sdk/emulator /home/marco/Android/Sdk/tools /home/marco/.platformio/penv/bin /home/marco/.npm-packages/bin /home/marco/.cargo/bin

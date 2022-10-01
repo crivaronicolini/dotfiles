@@ -1,0 +1,17 @@
+#!/bin/sh
+# vim: set filetype=sh:
+search="$1"
+run=$2
+current=$(xdotool getactivewindow)
+window=$(xdotool search --onlyvisible "$search")
+
+if [ -z "$window" ]
+then
+    $2
+    exit
+fi
+
+case "$current" in
+    "$window") xdotool windowminimize "$window";;
+    *) xdotool windowactivate "$window";;
+esac
