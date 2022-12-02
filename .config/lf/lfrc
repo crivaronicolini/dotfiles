@@ -120,6 +120,10 @@ cmd blah ${{
     lf -remote 'send reload'
 }}
 
+cmd drag-drop &{{
+    dragon-drop --and-exit $fx
+}}
+
 map st :set sortby time; set info time; set reverse!; top -- [];
 
 map <c-f> $lf -remote "send $id select '$(fzf)'"
@@ -161,3 +165,4 @@ map w img
 map W imG
 
 map . &nautilus .
+map Y drag-drop

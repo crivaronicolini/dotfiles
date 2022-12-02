@@ -21,7 +21,7 @@ alias ipy "ipython --profile=marco"
 alias g09 "wine /home/marco/.wine/drive_c/G09W/g09w.exe $argv"
 alias gview "wine /home/marco/.wine/drive_c/G09W/gview.exe $argv"
 alias pluto "julia -e 'using Pluto;Pluto.run()'"
-alias julia "julia -J/home/marco/.config/julia/ohmyrepl.so"
+# alias julia "julia -J/home/marco/.config/julia/ohmyrepl.so"
 alias bat 'bat $argv --pager="less -r"'
 alias mvim 'nvim -u ~/.config/nvim/minimal.vim $argv'
 alias jup2md 'jupyter nbconvert *.ipynb --to markdown '

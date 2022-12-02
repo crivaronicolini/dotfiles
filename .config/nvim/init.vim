@@ -38,7 +38,6 @@ Plug 'fatih/vim-go'
 Plug 'nvim-telescope/telescope.nvim'
 
 Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'honza/vim-snippets',
 Plug 'SirVer/ultisnips'
 Plug 'dkarter/bullets.vim', {'for': 'pandoc'}
 Plug 'AndrewRadev/inline_edit.vim', {'for': ['pandoc','tex']}
@@ -67,6 +66,8 @@ filetype plugin indent on
 set termguicolors
 
 lua require('plugins')
+
+source ~/.config/nvim/letrasgriegas.vim
 
 let autopep8_on_save = 0
 
@@ -189,6 +190,9 @@ nnoremap <silent><S-Right> :vertical resize +3<cr>
 nnoremap <silent><S-Left> :vertical resize -3<cr>
 nnoremap <silent><S-Down> :resize +3<cr>
 nnoremap <silent><S-Up> :resize -3<cr>
+
+nnoremap ]t :tabnext<CR>
+nnoremap [t :tabprevious<CR>
 
 nnoremap <Leader><Leader> <C-^>
 nnoremap <silent><Leader>q :Bclose<CR>

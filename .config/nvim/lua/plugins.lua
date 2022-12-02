@@ -127,6 +127,7 @@ require'lspconfig'.julials.setup { on_attach = on_attach, capabilities = capabil
 require'lspconfig'.svelte.setup { cmd = { '/home/marco/.npm-packages/bin/svelteserver', '--stdio' }, on_attach = on_attach, capabilities = capabilities }
 require'lspconfig'.clangd.setup { on_attach = on_attach, capabilities = capabilities }
 require'lspconfig'.eslint.setup { on_attach = on_attach, capabilities = capabilities }
+require'lspconfig'.rust_analyzer.setup { on_attach = on_attach, capabilities = capabilities }
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
@@ -159,7 +160,7 @@ require'lspconfig'.sumneko_lua.setup({
 
 
 require'nvim-treesitter.configs'.setup({
-    ensure_installed = { 'python', 'julia', 'svelte', 'javascript', 'lua', 'latex', 'bibtex', 'json', 'html', 'go',
+    ensure_installed = { 'python', 'julia', 'svelte', 'javascript', 'lua', 'latex', 'bibtex', 'json', 'html', 'go', 'rust',
         'fish', 'css', 'cmake', 'bash', 'vim', 'cpp' },
     sync_install = false,
     highlight = { enable = true, },
@@ -191,6 +192,8 @@ cmp.setup({
         end,
     },
     mapping = {
+        ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
+        ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
         ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
         ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
         ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
