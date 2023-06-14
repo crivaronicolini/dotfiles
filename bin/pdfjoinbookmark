@@ -1,0 +1,74 @@
+#!/bin/fish
+set usage "Usage: pdfjoinbookmark [OPTION] -o [OUTFILE] [FILES...]
+    -o, --outfile FILE      merged pdf file
+    -b, --bookmarks         bookmarks file, one line each
+    -s, --silent            don't print status
+    -h, --help              print usage information
+
+PDF join bookmark uses pdftk to join pdf files, adding a chapter bookmark where each file starts. The bookmark format defaults to the filename."
+
+
+argparse h/help b/bookmarks= s/silent o/outfile= -- $argv
+or return
+
+if set -q _flag_help; or test (count $argv) -lt 1
+    echo $usage
+    exit
+end
+
+set bookmarks_file "/tmp/bookmarks.info"
+rm -f "$bookmarks_file"
+
+# set bookmarks_fmt "BookmarkBegin
+# BookmarkTitle: %s
+# BookmarkLevel: 1
+# BookmarkPageNumber: %d
+# "
+
+set bookmarks_fmt '0 "%s" %d "[%d/Fit]"\n'
+
+if set -q _flag_b 
+    if test -e $_flag_b
+        set bookmarks (cat $_flag_b)
+    else
+        echo "error: bookmarks file doesn't exist"
+        exit 1
+    end
+end
+
+if test (count $bookmarks) -ne (count $argv)
+    echo "error: mismatched number of files and bookmarks"
+    exit 1
+end
+
+set outfile $_flag_o
+set num_pages_list (exiftool -T -PageCount -s3 $argv)
+
+set page_counter 1
+set i 1
+
+# Generate bookmarks file.
+for f in $argv
+    if not set -q _flag_s
+        echo $f
+    end
+
+    if set -q _flag_b
+        set title $bookmarks[$i]
+    else
+        set title (basename -s .pdf $f)
+    end
+
+    printf "$bookmarks_fmt" "$title" "$page_counter" "$page_counter" >> "$bookmarks_file"
+    set page_counter (math $page_counter + $num_pages_list[$i])
+    set i (math $i + 1)
+end
+
+# Combine PDFs and embed the generated bookmarks file.
+set error (cpdf -merge $argv AND -add-bookmarks $bookmarks_file -o $outfile)
+echo $error | tail -n +3
+
+# pdftk $argv cat output - | \
+#     pdftk - update_info "$bookmarks_file" output "$outfile"
+
+# gs -sDEVICE=pdfwrite -q -dBATCH -dNOPAUSE -sOutputFile="$OUT_FILE" -dPDFSETTINGS=/screen "$bookmarks_file"  -f "${files[@]}"

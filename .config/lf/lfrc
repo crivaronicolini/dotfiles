@@ -1,4 +1,4 @@
-# vim:syn=zsh
+# vim:ft=bash
 
 set shell sh
 set shellopts '-eu'
@@ -6,15 +6,23 @@ set ifs "\n"
 set scrolloff 10
 
 cmd open ${{
-    case $(file --mime-type $f -b) in
+    case $(mimetype -b $f) in
+        text/csv) sc-im $fx;;
+        text/tab-separated-values) sc-im $fx;;
         text/*) nvim $fx;;
         *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
     esac
 }}
 
-%mkdir -p ~/.trash
 
-cmd trash %set -f; mv $fx ~/.trash; echo $fx trashed
+cmd trash %set -f; gio trash $fx; echo $(basename -a $fx) trashed
+
+cmd trash-restore %{{
+  set -f
+  ft=$(basename -a $fx|sed -e 's/^/trash:\/\/\//')
+  gio trash --restore $ft
+  echo 'restored' $(basename -a $fx)
+}}
 
 cmd mkdir %mkdir "$(echo $* | tr ' ' '\ ')"
 
@@ -121,7 +129,7 @@ cmd blah ${{
 }}
 
 cmd drag-drop &{{
-    dragon-drop --and-exit $fx
+    dragon-drop --all --and-exit $fx
 }}
 
 map st :set sortby time; set info time; set reverse!; top -- [];
@@ -140,6 +148,7 @@ map P :Link
 map N push $touch<space>
 map b $man $f
 map x trash
+map <c-s> trash-restore
 map X !$f
 map o !mimeopen $f
 map O !mimeopen --ask $f
@@ -149,7 +158,6 @@ map A newfolder
 map t extract $f
 map T push :tar<space>
 map Z push :zip<space>
-map D delete
 map <a-o> quit
 map J push 6j
 map K push 6k
@@ -158,11 +166,19 @@ map L push hjl
 map ? doc
 map <esc> quit
 map q quit
-set previewer ~/.config/lf/pv.sh
-map i $~/.config/lf/pv.sh $f | less -R
+# set previewer ~/.config/lf/pv.sh
+map i $ctpv $f | less -R
+
+
+set previewer ctpv
+set cleaner ctpvclear
+&ctpv -s $id
+&ctpvquit $id
 
 map w img
 map W imG
 
 map . &nautilus .
 map Y drag-drop
+
+set incsearch

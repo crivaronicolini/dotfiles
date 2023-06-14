@@ -1,0 +1,26 @@
+#!/usr/bin/fish
+curl -s "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&generator=random&formatversion=2&explaintext=1&exsectionformat=plain&grnnamespace=0" | jj query.pages.0.extract | sed '/^References/q' | head -n -3
+
+# #print title
+# set text (curl -s "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&generator=random&formatversion=2&explaintext=1&exsectionformat=plain&grnnamespace=0")
+# set title (echo $text | jj query.pages.0.title)
+# set body (echo $text | jj query.pages.0.extract | sed '/^References/q' | head -n -3)
+#
+# printf $title\n
+# printf $body
+
+# #minimum line number
+# argparse n#min -- $argv
+# or return
+#
+# set min $_flag_n
+#
+# set text (curl -s "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&generator=random&formatversion=2&explaintext=1&exsectionformat=plain&grnnamespace=0" | jj query.pages.0.extract | sed '/^References/q' | head -n -3)
+#
+# set lines (echo $text | wc -l)
+#
+# if test $lines -le $min
+#     echo $lines
+#     echo $text
+#     randomwikiarticle -$min
+# end

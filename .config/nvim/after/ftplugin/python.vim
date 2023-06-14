@@ -27,7 +27,7 @@ endif
 "para hacer que el output de python se vea
 let $PYTHONUNBUFFERED=1
 
-autocmd BufWritePost *.py normal! mP
+" autocmd BufWritePost *.py normal! mP
 " autocmd BufWritePre *.py execute ':Semshi highlight'
 
 nnoremap <buffer> <leader>w :TREPLSendLine<CR>j
@@ -37,7 +37,8 @@ nnoremap <buffer> <CR> :TREPLSendFile<CR>
 " nnoremap <buffer> <leader>W vap:TREPLSendSelection<CR>``
 nnoremap <buffer> <silent> <leader>W :call Send_par()<CR>
 " nnoremap <buffer> <Leader>v :call Go_pdb()<cr>
-map <buffer> <silent> <F5> :w <bar> AsyncRun python3 %<CR>
+nnoremap <buffer> <silent> <F5> :AsyncRun -save=1 python3 %<CR>
+nnoremap <buffer> <silent> <F17> :AsyncStop<CR>
 nnoremap <buffer> <silent> <leader>rr :Semshi rename<CR>
 nnoremap <buffer> <leader>m :call Send_cell()<CR>
 

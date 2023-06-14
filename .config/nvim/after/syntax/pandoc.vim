@@ -1,6 +1,34 @@
 syn match myTodo "\<TODO\>"
 hi def link myTodo Todo
-hi Todo guifg=orange guibg=None
+hi Todo guifg=Orange guibg=None
+
+syn match myRef "\<REF\>"
+hi def link myRef Ref
+hi Ref guifg=Blue guibg=None
+
+syn match myCita "\<CITA\>"
+hi def link myCita Cita
+hi Cita guifg=DarkCyan guibg=None
+
+syn match myFig "\<FIG\>"
+hi def link myFig Fig
+hi Fig guifg=Brown guibg=None
+
+syn match myTabla "\<TABLA\>"
+hi def link myTabla Tabla
+hi Tabla guifg=LightRed guibg=None
+
+syn match myEscribir "\<ESCRIBIR\>"
+hi def link myEscribir Escribir
+hi Escribir guifg=LightMagenta guibg=None
+
+if &background=='dark'
+    hi Conceal guifg=white guibg=None
+else
+    hi Conceal guifg=black guibg=None
+endif
+hi! def link Title Label
+
 if &background=='dark'
     hi Conceal guifg=white guibg=None
 else

@@ -6,8 +6,6 @@ let g:neoterm_size=66 " terminal split size
 let g:neoterm_autoscroll=1 " scroll to the bottom when running a command
 let g:neoterm_bracketed_paste=1
 
-source ~/.config/nvim/letrasgriegas-unicode.vim
-
 nnoremap <buffer> <leader>w :TREPLSendLine<CR>j
 vnoremap <buffer> <leader>w :TREPLSendSelection<CR>
 nnoremap <buffer> <CR> :TREPLSendFile<CR>
@@ -23,16 +21,3 @@ function! Send_par()
     " call setpos('.', cursor)
     call winrestview(cursor)
 endfunction
-
-nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap gh <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap gi <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap gr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <space>D <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <space>rr <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <space>ca <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <space>e <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-nnoremap [d <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap ]d <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-nnoremap <space>f <cmd>lua vim.lsp.buf.formatting()<CR>
-
