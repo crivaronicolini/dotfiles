@@ -1,7 +1,49 @@
 return {
   colorscheme = { "catppuccin" },
-  "tpope/vim-fugitive",
-  -- "tpope/vim-surround",
+  "norcalli/nvim-colorizer.lua",
+  {
+    "Konfekt/vim-CtrlXA",
+    keys = {
+      { "<c-x>" },
+      { "<c-a>" },
+    },
+  },
+
+  {
+    "tpope/vim-fugitive",
+    cmd = "Git",
+  },
+
+  {
+    "kylechui/nvim-surround",
+    keys = {
+      { "ys" },
+      { "cs" },
+      { "ds" },
+    },
+    version = "*",
+    config = true,
+  },
+
+  {
+    "numToStr/Comment.nvim",
+    keys = {
+      { "gco" },
+      { "gcO" },
+      { "gcc" },
+      { "gc" },
+    },
+    dependencies = {
+      "JoosepAlviste/nvim-ts-context-commentstring",
+    },
+    config = function()
+      require("Comment").setup()
+      local ft = require("Comment.ft")
+      ft.pandoc = { "<!--%s-->", "<!--%s-->" }
+      ft.astro = { "<!--%s-->", "<!--%s-->" }
+    end,
+  },
+  --, "tpope/vim-surround",
   {
     -- "tummetott/unimpaired.nvim",
     -- config = function()
@@ -14,8 +56,6 @@ return {
     --   { "n", "]p", "<Plug>unimpaired-put-below", { desc = "unimpaired put below" } },
     -- },
   },
-  "Konfekt/vim-CtrlXA",
-  "skywind3000/asyncrun.vim",
 
   -- {
   --   "chrisgrieser/nvim-spider",
@@ -30,26 +70,15 @@ return {
 
   {
     "nvim-treesitter/playground",
+    cmd = "TSPlaygroundToggle",
     dependencies = "nvim-treesitter/nvim-treesitter",
-  },
-
-  {
-    "kylechui/nvim-surround",
-    version = "*",
-    config = function()
-      require("nvim-surround").setup({})
-    end,
-    -- event = "VeryLazy",
-    -- enabled = false,
   },
 
   {
     "Wansmer/treesj",
     keys = { "<space>m", "<space>j", "<space>J" },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    config = function()
-      require("treesj").setup({})
-    end,
+    config = true,
   },
 
   {

@@ -33,13 +33,12 @@ let $PYTHONUNBUFFERED=1
 nnoremap <buffer> <leader>w :TREPLSendLine<CR>j
 vnoremap <buffer> <leader>w :TREPLSendSelection<CR>
 " nnoremap <buffer> <silent> <CR> :w <CR>orun <Esc>:put=expand('%:p')<CR>kJ<Esc>:TREPLSendLine<CR>u
-nnoremap <buffer> <CR> :TREPLSendFile<CR>
+nnoremap <buffer> <F5> :TREPLSendFile<CR>
 " nnoremap <buffer> <leader>W vap:TREPLSendSelection<CR>``
 nnoremap <buffer> <silent> <leader>W :call Send_par()<CR>
 " nnoremap <buffer> <Leader>v :call Go_pdb()<cr>
-nnoremap <buffer> <silent> <F5> :AsyncRun -save=1 python3 %<CR>
+nnoremap <buffer> <silent> <CR> :AsyncRun -save=1 python3 %<CR>
 nnoremap <buffer> <silent> <F17> :AsyncStop<CR>
-nnoremap <buffer> <silent> <leader>rr :Semshi rename<CR>
 nnoremap <buffer> <leader>m :call Send_cell()<CR>
 
 nnoremap <buffer> <leader>M :call Unmake_block()<CR>

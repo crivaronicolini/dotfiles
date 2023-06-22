@@ -13,7 +13,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+vim.api.nvim_create_autocmd({ "BufModifiedSet" }, {
   group = augroup("global_mark"),
   pattern = { "*.md", "*.py" },
   callback = function()
@@ -33,4 +33,12 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 
 vim.filetype.add({
   extension = { md = "pandoc", tex = "latex", frac = "glsl" },
+})
+
+vim.api.nvim_create_autocmd("BufReadPost", {
+  group = augroup("formatopts"),
+  callback = function()
+    vim.bo.formatoptions = "ntcqj"
+    vim.opt_local.wrap = true
+  end,
 })

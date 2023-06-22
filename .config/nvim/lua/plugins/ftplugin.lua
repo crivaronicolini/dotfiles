@@ -33,4 +33,9 @@ return {
     "kassio/neoterm",
     ft = { "python", "julia" },
   },
+
+  {
+    "skywind3000/asyncrun.vim",
+    ft = { "pandoc", "cpp", "python", "julia" },
+  },
 }

@@ -346,7 +346,7 @@ return {
 
   -- LOGARITHM WITH BASE SUBSCRIPT
   s(
-    { trig = "([^%a%\\])ll", wordTrig = false, regTrig = true, snippetType = "autosnippet" },
+    { trig = "([^%a%\\])ll", wordTrig = false, regTrig = true },
     fmta("<>\\log_{<>}", {
       f(function(_, snip)
         return snip.captures[1]

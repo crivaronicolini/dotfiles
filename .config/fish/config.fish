@@ -12,7 +12,7 @@ bind \cx 'fg 2>/dev/null'
 bind \ed 'sd; commandline -f repaint'
 bind \ch 'builtin cd ..; commandline -f repaint'
 
-alias n "nvim"
+alias n nvim
 alias clip "xsel -ib"
 alias ipy "ipython --profile=marco"
 alias g09 "wine /home/marco/.wine/drive_c/G09W/g09w.exe $argv"
@@ -45,3 +45,4 @@ fzf_key_bindings
 # bind \eh fzf-history-widget
 
 set PATH /home/marco/bin/ /home/marco/.local/bin /usr/local/bin /usr/bin /var/lib/snapd/snap/bin /usr/local/sbin /var/lib/flatpak/exports/bin /usr/bin/site_perl /usr/bin/vendor_perl /usr/bin/core_perl /home/marco/.platformio/penv/bin /home/marco/.npm-packages/bin /home/marco/.cargo/bin /home/marco/.juliaup/bin
+zoxide init fish | source

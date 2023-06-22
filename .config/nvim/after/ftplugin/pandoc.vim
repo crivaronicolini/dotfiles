@@ -1,10 +1,12 @@
 " nnoremap <silent> <buffer> <CR> :AsyncRun! -silent -save=2 pandoc -f markdown+hard_line_breaks <C-r>% --pdf-engine=pdflatex -o %:r.pdf --variable urlcolor=blue<CR>
 nnoremap <silent> <buffer> <CR> :AsyncRun! -silent -save=2 pandoc -f markdown <C-r>% --pdf-engine=pdflatex -o %:p:h/pdf/%:r.pdf --variable urlcolor=blue<CR>
-nnoremap <silent> <buffer> <F6> :AsyncRun! -silent -save=2 pandoc -f markdown <C-r>% -s --highlight-style tango --mathjax --toc -o %:p:h/html/%:r.html<CR>
+nnoremap <silent> <buffer> <backspace> :AsyncRun! -silent -save=2 pandoc -f markdown <C-r>% -s --highlight-style tango --mathjax --toc -o %:r.html<CR>
 " nn <F5> :w <bar>:!pweave -o %:r.md -f markdown %<CR>:!pandoc <C-r> %:r.md --pdf-engine=pdflatex -o  %:p:h/pdf/%:r.pdf<CR>
 " autocmd BufWritePost * normal! mM
 " nnoremap <silent> <buffer> <CR> :AsyncRun! -silent -save=2 pandoc --filter=pandoc-citeproc <C-r>% --pdf-engine=pdflatex -o %:r.pdf --variable urlcolor=blue<CR>
 " nnoremap <F5> :w<bar> AsyncRun!pandoc <C-r>% --pdf-engine=pdflatex -o %:r.pdf --variable urlcolor=blue<CR>
+
+set wrap
 
 " cambia la profundidad de item
 nnoremap <silent> ]i :call <SID>ChangeItemLevel(1)<CR>
@@ -15,7 +17,7 @@ nnoremap <silent> ]r :call <SID>ChangeSectionLevel(1)<CR>
 nnoremap <silent> [r :call <SID>ChangeSectionLevel(-1)<CR>
 
 nnoremap <leader>i :call <SID>PasteImg()<CR>
-" autocmd InsertLeave * if &readonly==0 && filereadable(bufname('%')) | silent update | endif
+autocmd InsertLeave * if &readonly==0 && filereadable(bufname('%')) | silent update | endif
 
 function! s:SetCheckFilename(dir)
     let l:filename = a:dir .. "/" .. input("Filename: ") .. ".png"

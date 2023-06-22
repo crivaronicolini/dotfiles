@@ -2,13 +2,7 @@ return {
 
   {
     "L3MON4D3/LuaSnip",
-    event = "BufReadPost",
-    dependencies = {
-      "benfowler/telescope-luasnip.nvim",
-      config = function()
-        require("telescope").load_extension("luasnip")
-      end,
-    },
+    -- event = "InsertEnter",
 
     -- stylua: ignore
     config = function ()
@@ -145,7 +139,7 @@ return {
           { name = "nvim_lsp" },
           { name = "nvim_lsp_signature_help" },
           { name = "pandoc_references" },
-          { name = "path" },
+          -- { name = "path" },
           -- { name = "ultisnip" },
         }),
         formatting = {

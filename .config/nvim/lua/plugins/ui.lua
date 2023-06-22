@@ -15,6 +15,7 @@ return {
 
   {
     "chentoast/marks.nvim",
+    event = "BufReadPost",
     opts = { default_mappings = true, signs = true },
   },
 
@@ -40,14 +41,6 @@ return {
   },
 
   {
-    "nvim-telescope/telescope-fzf-native.nvim",
-    build = "make",
-    cond = function()
-      return vim.fn.executable("make") == 1
-    end,
-  },
-
-  {
     "nvim-telescope/telescope.nvim",
     -- dependencies = {
     --   "debugloop/telescope-undo.nvim",
@@ -58,6 +51,21 @@ return {
     --   })
     --   require("telescope").load_extension("undo")
     -- end,
+    dependencies = {
+      {
+        "benfowler/telescope-luasnip.nvim",
+        config = function()
+          require("telescope").load_extension("luasnip")
+        end,
+      },
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+        cond = function()
+          return vim.fn.executable("make") == 1
+        end,
+      },
+    },
     keys = {
       {
         "<leader>,",
@@ -76,6 +84,9 @@ return {
         "nvim-treesitter/nvim-treesitter-context",
         opts = { mode = "topline" },
       },
+    },
+    context_commentstring = {
+      enable = true,
     },
     opts = {
       ensure_installed = {
