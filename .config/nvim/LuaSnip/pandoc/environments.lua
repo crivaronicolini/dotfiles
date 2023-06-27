@@ -23,6 +23,22 @@ local line_begin = require("luasnip.extras.expand_conditions").line_begin
 
 -- Return snippet tables
 return {
+
+  -- LINK
+  s(
+    { trig = "lnk", snippetType = "autosnippet" },
+    fmta(
+      [[
+      [<>](<>)
+    ]],
+      {
+        i(1),
+        i(2),
+      }
+    ),
+    {}
+  ),
+
   -- IMG
   s(
     { trig = "img", snippetType = "autosnippet" },
@@ -37,6 +53,7 @@ return {
     ),
     { condition = line_begin }
   ),
+
   -- GENERIC ENVIRONMENT
   s(
     { trig = "new", snippetType = "autosnippet" },

@@ -24,21 +24,21 @@ local md_math_mode = helpers.markdown_math_mode
 -- Return snippet tables
 return {
 
-  -- is md_math_mode
-  s(
-    { trig = "md", wordTrig = false, regTrig = false, snippetType = "autosnippet" },
-    f(function()
-      return "md" .. tostring(md_math_mode())
-    end)
-  ),
+  -- -- is md_math_mode
+  -- s(
+  --   { trig = "md", wordTrig = false, regTrig = false, snippetType = "autosnippet" },
+  --   f(function()
+  --     return "md" .. tostring(md_math_mode())
+  --   end)
+  -- ),
 
-  -- is tex_math_mode
-  s(
-    { trig = "tt", wordTrig = false, regTrig = false, snippetType = "autosnippet" },
-    f(function()
-      return "tex" .. tostring(tex_math_mode())
-    end)
-  ),
+  -- -- is tex_math_mode
+  -- s(
+  --   { trig = "tt", wordTrig = false, regTrig = false, snippetType = "autosnippet" },
+  --   f(function()
+  --     return "tex" .. tostring(tex_math_mode())
+  --   end)
+  -- ),
 
   -- SUPERSCRIPT: td
   s(
