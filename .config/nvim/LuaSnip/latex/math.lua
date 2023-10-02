@@ -31,12 +31,12 @@ return {
     end)
   ),
   -- is tex_math_mode
-  s(
-    { trig = "tx", wordTrig = false, regTrig = false, snippetType = "autosnippet" },
-    f(function()
-      return "tx" .. tostring(tex_math_mode())
-    end)
-  ),
+  -- s(
+  --   { trig = "tx", wordTrig = false, regTrig = false, snippetType = "autosnippet" },
+  --   f(function()
+  --     return "tx" .. tostring(tex_math_mode())
+  --   end)
+  -- ),
   -- SUPERSCRIPT
   s(
     { trig = "([%w%)%]%}])'", wordTrig = false, regTrig = true, snippetType = "autosnippet" },
@@ -259,6 +259,17 @@ return {
       d(1, get_visual),
     }),
     { condition = tex_math_mode() }
+  ),
+  -- TEXY
+  s(
+    { trig = "([^%a])tx", regTrig = true, wordTrig = false, snippetType = "autosnippet" },
+    fmta("<>\\text{<>}", {
+      f(function(_, snip)
+        return snip.captures[1]
+      end),
+      d(1, get_visual),
+    }),
+    { condition = md_math_mode() }
   ),
   -- SQUARE ROOT
   s(

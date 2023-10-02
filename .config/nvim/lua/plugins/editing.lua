@@ -27,12 +27,7 @@ return {
 
   {
     "numToStr/Comment.nvim",
-    keys = {
-      { "gco" },
-      { "gcO" },
-      { "gcc" },
-      { "gc" },
-    },
+    event = "VeryLazy",
     dependencies = {
       "JoosepAlviste/nvim-ts-context-commentstring",
     },

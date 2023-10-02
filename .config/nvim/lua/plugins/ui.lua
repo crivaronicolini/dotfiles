@@ -58,6 +58,7 @@ return {
           require("telescope").load_extension("luasnip")
         end,
       },
+      { "crispgm/telescope-heading.nvim" },
       {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",

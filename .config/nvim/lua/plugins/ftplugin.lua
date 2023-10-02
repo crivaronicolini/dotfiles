@@ -7,6 +7,7 @@ return {
       -- "SirVer/ultisnips",
       {
         "jbyuki/nabla.nvim",
+        enabled = false,
         -- stylua: ignore
         keys = {
           { "<leader>cn", function() require("nabla").enable_virt() end, desc = "Notation rebuild" },

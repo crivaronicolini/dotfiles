@@ -1,4 +1,4 @@
-let g:pydoc_open_cmd = 'vsplit'
+" let g:pydoc_open_cmd = 'vsplit'
 " nmap H <Plug>ShowPyDoc4
 
 " let g:semshi#error_sign_delay = 2

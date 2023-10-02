@@ -6,4 +6,9 @@
 
 set -e
 
-pdftotext "$1" - | grep -oP "\b(10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?![\"&\'<>])\S)+)\b" | head -n 1
+result=$(pdftotext "$1" - | grep -oP "\b(10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?![\"&\'<>])\S)+)\b" | head -n 1)
+if [[ -z "$result" ]]; then
+	exit 1
+else
+	echo "$result"
+fi

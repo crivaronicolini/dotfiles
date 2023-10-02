@@ -9,7 +9,12 @@ set -e
 result=
 i=
 while [[ $i < 10 && "$result" != *"author = "* ]]; do
-    result=$(curl -s "http://api.crossref.org/works/$1/transform/application/x-bibtex")
-    i=$(( $i + 1 ))
+	result=$(curl -s "http://api.crossref.org/works/$1/transform/application/x-bibtex")
+	i=$(($i + 1))
 done
-echo "$result"
+if [[ "$result" == "Resource not found." ]]; then
+	echo "$result" >&2
+	exit 1
+else
+	echo "$result"
+fi

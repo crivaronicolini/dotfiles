@@ -19,11 +19,9 @@ vim.keymap.set("n", "gP", "P")
 
 vim.keymap.set({ "x" }, "gp", '"_dP', { desc = "Paste to void reg" })
 
-vim.keymap.set("n", "<leader>r", ":s//g<Left><Left>", { desc = "Fast replace line" })
+vim.keymap.set("n", "<c-n>", "*``cgn", { desc = "Replace Next" })
+vim.keymap.set({ "n", "v" }, "<leader>r", ":s//g<Left><Left>", { desc = "Fast replace line" })
 vim.keymap.set("n", "<leader>R", ":%s//g<Left><Left>", { desc = "Fast replace buffer" })
-vim.cmd([[
-  vmap <leader>r y:execute "%s/".escape(@",'[]/')."//gc"<Left><Left><Left><Left>
-]])
 
 vim.keymap.set("n", "<leader><tab>n", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 vim.keymap.set("n", "<leader><tab>p", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })

@@ -9,7 +9,8 @@ let g:neoterm_bracketed_paste=1
 nnoremap <buffer> <leader>w :TREPLSendLine<CR>j
 vnoremap <buffer> <leader>w :TREPLSendSelection<CR>
 nnoremap <buffer> <CR> :TREPLSendFile<CR>
-nnoremap <silent> <Backspace> :w <CR>oinclude("<Esc>:put=expand('%')<CR>A")<Esc>kJx<Esc>:TREPLSendLine<CR>u
+" nnoremap <silent> <Backspace> :w <CR>oinclude("<Esc>:put=expand('%')<CR>A")<Esc>kJJx<Esc>:TREPLSendLine<CR>
+nnoremap <silent> <Backspace> :w :put='include("'. expand('%') . '")'<CR>A")<Esc>kJJx<Esc>:TREPLSendLine<CR>
 nmap <leader>W vic:TREPLSendSelection<CR>``
 nnoremap <buffer> <silent> <leader>W :call Send_par()<CR>
 function! Send_par()

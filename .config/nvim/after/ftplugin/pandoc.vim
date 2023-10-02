@@ -1,14 +1,10 @@
-" nnoremap <silent> <buffer> <CR> :AsyncRun! -silent -save=2 pandoc -f markdown+hard_line_breaks <C-r>% --pdf-engine=pdflatex -o %:r.pdf --variable urlcolor=blue<CR>
-nnoremap <silent> <buffer> <CR> :AsyncRun! -silent -save=2 pandoc -f markdown <C-r>% --pdf-engine=pdflatex -o %:p:h/pdf/%:r.pdf --variable urlcolor=blue<CR>
-" nnoremap <silent> <buffer> <backspace> :AsyncRun! -silent -save=2 pandoc -f markdown <C-r>% -s --highlight-style tango --mathjax --toc -o %:r.html<CR>
+nnoremap <silent> <buffer> <CR> :AsyncRun! -silent -save=2 ~/.pandoc/build-pdf.sh <C-r>% %:r.pdf <cr>
 nnoremap <silent> <buffer> <backspace> :AsyncRun! -silent -save=2 ~/.pandoc/build-inline-html.sh <C-r>% %:r.html <cr>
 
 " nn <F5> :w <bar>:!pweave -o %:r.md -f markdown %<CR>:!pandoc <C-r> %:r.md --pdf-engine=pdflatex -o  %:p:h/pdf/%:r.pdf<CR>
 " autocmd BufWritePost * normal! mM
 " nnoremap <silent> <buffer> <CR> :AsyncRun! -silent -save=2 pandoc --filter=pandoc-citeproc <C-r>% --pdf-engine=pdflatex -o %:r.pdf --variable urlcolor=blue<CR>
 " nnoremap <F5> :w<bar> AsyncRun!pandoc <C-r>% --pdf-engine=pdflatex -o %:r.pdf --variable urlcolor=blue<CR>
-
-set wrap
 
 " cambia la profundidad de item
 nnoremap <silent> ]i :call <SID>ChangeItemLevel(1)<CR>

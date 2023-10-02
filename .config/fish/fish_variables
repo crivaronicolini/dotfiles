@@ -2,6 +2,7 @@
 # VERSION: 3.0
 SETUVAR BAT_PAGER:less\x20\x2dR
 SETUVAR --export EDITOR:/usr/bin/nvim
+SETUVAR --path GOPATH:\x7e/\x2elocal/share/go
 SETUVAR HORS_ENGINE:google
 SETUVAR --path NODE_PATH:/home/marco/\x2enpm\x2dpackages/
 SETUVAR NPM_CONFIG_PREFIX:/home/marco/\x2enpm\x2dpackages/

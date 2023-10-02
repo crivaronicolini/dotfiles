@@ -205,9 +205,19 @@ return {
       }
     )
   ),
+  -- DISPLAY MATH
+  s(
+    { trig = "dm", regTrig = true, wordTrig = false, snippetType = "autosnippet" },
+    fmta("\n\n<>$$\n\t<>\n$$", {
+      f(function(_, snip)
+        return snip.captures[1]
+      end),
+      d(1, get_visual),
+    })
+  ),
   -- INLINE MATH
   s(
-    { trig = "([^%l])mm", regTrig = true, wordTrig = false, snippetType = "autosnippet" },
+    { trig = "([^%l])mk", regTrig = true, wordTrig = false, snippetType = "autosnippet" },
     fmta("<>$<>$", {
       f(function(_, snip)
         return snip.captures[1]
@@ -217,7 +227,7 @@ return {
   ),
   -- INLINE MATH ON NEW LINE
   s(
-    { trig = "^mm", regTrig = true, wordTrig = false, snippetType = "autosnippet" },
+    { trig = "^mk", regTrig = true, wordTrig = false, snippetType = "autosnippet" },
     fmta("$<>$", {
       i(1),
     })

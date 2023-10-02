@@ -5,7 +5,7 @@ vim.o.spellsuggest = 7
 vim.opt.spelllang = { "es", "en" }
 vim.o.cul = true
 vim.o.confirm = true
-vim.cmd([[set wrap linebreak breakindent]])
+-- vim.cmd([[set wrap linebreak breakindent]])
 -- vim.o.linebreak = true
 -- vim.o.breakindent = true
 -- vim.wo.linebreak = true
@@ -30,6 +30,7 @@ vim.o.number = false
 vim.o.relativenumber = false
 vim.wo.signcolumn = "yes"
 vim.o.autowriteall = true
+-- vim.o.laststatus = 2
 
 vim.o.shada = "'300,<100,:100,%"
 vim.o.undofile = true

@@ -39,10 +39,13 @@ abbr -a gp 'git pull'
 abbr -a gP 'git push'
 set -eg EDITOR
 
+set -U GOPATH "~/.local/share/go"
+
 fzf_key_bindings
 # bind \ef fzf-file-widget
 # bind \ec fzf-cd-widget
 # bind \eh fzf-history-widget
 
 set PATH /home/marco/bin/ /home/marco/.local/bin /usr/local/bin /usr/bin /var/lib/snapd/snap/bin /usr/local/sbin /var/lib/flatpak/exports/bin /usr/bin/site_perl /usr/bin/vendor_perl /usr/bin/core_perl /home/marco/.platformio/penv/bin /home/marco/.npm-packages/bin /home/marco/.cargo/bin /home/marco/.juliaup/bin /home/marco/.cabal/bin/
+
 zoxide init fish | source

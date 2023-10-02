@@ -30,7 +30,8 @@ if $(grep -qE "^style:\s*'tufte'" "$src"); then
 		--template="template.html5" \
 		--include-in-header="/home/marco/.pandoc/themeinline.css" \
 		--include-in-header="/home/marco/.pandoc/tufteinline.css" \
-		--filter=pandoc-sidenote \
+		--filter=pandoc-crossref \
+		--citeproc \
 		--toc \
 		--wrap=none \
 		--output "$dest" \
@@ -42,9 +43,11 @@ else
 		--to html5+smart \
 		--template="template.html5" \
 		--include-in-header="/home/marco/.pandoc/themeinline.css" \
-		--filter=pandoc-sidenote \
+		--filter=pandoc-crossref \
+		--citeproc \
 		--toc \
 		--wrap=none \
 		--output "$dest" \
 		"$src"
 fi
+# --filter=pandoc-sidenote \

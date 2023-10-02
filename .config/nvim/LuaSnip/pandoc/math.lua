@@ -77,12 +77,12 @@ return {
   --   { condition = tex_math_mode() }
   -- ),
 
-  -- TEXT SUBSCRIPT: sd
-  s(
-    { trig = "sd", snippetType = "autosnippet", wordTrig = false },
-    fmta("_{\\mathrm{<>}}", { d(1, get_visual) }),
-    { condition = tex_math_mode() }
-  ),
+  -- -- TEXT SUBSCRIPT: sd
+  -- s(
+  --   { trig = "sd", snippetType = "autosnippet", wordTrig = false },
+  --   fmta("_{\\mathrm{<>}}", { d(1, get_visual) }),
+  --   { condition = tex_math_mode() }
+  -- ),
 
   -- SUPERSCRIPT SHORTCUT: "
   -- Places the first alphanumeric character after the trigger into a superscript.
@@ -554,10 +554,10 @@ return {
   --   t("\\parallel"),
   -- }),
 
-  -- CDOTS, i.e. \cdots
-  s({ trig = "cdd", snippetType = "autosnippet" }, {
-    t("\\cdots"),
-  }),
+  -- -- CDOTS, i.e. \cdots
+  -- s({ trig = "cdd", snippetType = "autosnippet" }, {
+  --   t("\\cdots"),
+  -- }),
 
   -- LDOTS, i.e. \ldots: ...
   s({ trig = "...", snippetType = "autosnippet" }, {
@@ -600,9 +600,14 @@ return {
   -- }),
 
   -- DOT PRODUCT, i.e. \cdot: **
-  s({ trig = "**", snippetType = "autosnippet" }, {
+  s({ trig = "cdd", snippetType = "autosnippet" }, {
     t("\\cdot "),
   }),
+
+  -- -- DOT PRODUCT, i.e. \cdot: **
+  -- s({ trig = "**", snippetType = "autosnippet" }, {
+  --   t("\\cdot "),
+  -- }),
 
   -- CROSS PRODUCT, i.e. \times: xx
   s({ trig = "xx", snippetType = "autosnippet" }, {
