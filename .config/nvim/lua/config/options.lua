@@ -1,17 +1,13 @@
-vim.o.clipboard = false
+vim.o.clipboard = ""
 vim.o.ignorecase = true
 vim.o.smartcase = true
-vim.o.spellsuggest = 7
+vim.o.spellsuggest = "7"
 vim.opt.spelllang = { "es", "en" }
 vim.o.cul = true
 vim.o.confirm = true
--- vim.cmd([[set wrap linebreak breakindent]])
--- vim.o.linebreak = true
--- vim.o.breakindent = true
--- vim.wo.linebreak = true
--- vim.wo.wrap = true
--- vim.opt_local.wrap = true
--- vim.o.showbreak = "↳"
+vim.o.wrap = true
+vim.o.linebreak = true
+vim.o.breakindent = true
 vim.o.lazyredraw = true
 vim.opt.path:append({ "**" })
 vim.o.expandtab = true
@@ -25,18 +21,15 @@ vim.o.virtualedit = "block"
 vim.o.wildignorecase = true
 vim.o.splitright = true
 vim.o.splitbelow = false
-vim.o.include = false
 vim.o.number = false
 vim.o.relativenumber = false
 vim.wo.signcolumn = "yes"
 vim.o.autowriteall = true
--- vim.o.laststatus = 2
 
 vim.o.shada = "'300,<100,:100,%"
 vim.o.undofile = true
 vim.o.swapfile = false
 
-vim.o.updatetime = 250
 vim.o.timeout = true
 vim.o.timeoutlen = 300
 vim.o.termguicolors = true
@@ -48,3 +41,4 @@ if 8 <= time.hour and time.hour < 17 then
 else
   vim.o.background = "dark"
 end
+vim.g.snacks_animate = false

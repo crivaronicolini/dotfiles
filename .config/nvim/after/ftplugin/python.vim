@@ -4,17 +4,17 @@
 " let g:semshi#error_sign_delay = 2
 " let g:semshi#excluded_hl_groups = ['local']
 
+echo("hola")
+
 let g:neoterm_shell = '/usr/bin/fish'
-let g:neoterm_repl_python = ['ipy']
-let g:neoterm_direct_open_repl = 1
-" let g:neoterm_auto_repl_cmd = 1
+let g:neoterm_repl_python = ['source .venv/bin/activate.fish', 'clear', 'ipython']
+" let g:neoterm_direct_open_repl = 1
+let g:neoterm_auto_repl_cmd = 1
 let g:neoterm_default_mod='vertical' " open terminal in bottom split
 let g:neoterm_size=66 " terminal split size
 let g:neoterm_autoscroll=1 " scroll to the bottom when running a command
 let g:neoterm_bracketed_paste=1
 
-let g:autopep8_on_save = 1
-let g:autopep8_disable_show_diff=1
 let g:asyncrun_open=8
 let g:asyncrun_trim=1
 " let g:asyncrun_exit = 'silent call Ring_bell()'
@@ -37,12 +37,12 @@ nnoremap <buffer> <F5> :TREPLSendFile<CR>
 " nnoremap <buffer> <leader>W vap:TREPLSendSelection<CR>``
 nnoremap <buffer> <silent> <leader>W :call Send_par()<CR>
 " nnoremap <buffer> <Leader>v :call Go_pdb()<cr>
-nnoremap <buffer> <silent> <CR> :AsyncRun -save=1 python3 %<CR>
+nnoremap <buffer> <silent> <CR> :AsyncRun -save=1 python %<CR>
 nnoremap <buffer> <silent> <F17> :AsyncStop<CR>
-nnoremap <buffer> <leader>m :call Send_cell()<CR>
+" nnoremap <buffer> <leader>m :call Send_cell()<CR>
 
-nnoremap <buffer> <leader>M :call Unmake_block()<CR>
-xnoremap <buffer> <leader>M :<c-u>call Make_block()<CR>
+" nnoremap <buffer> <leader>M :call Unmake_block()<CR>
+" xnoremap <buffer> <leader>M :<c-u>call Make_block()<CR>
 
 " " functions
 " nmap <buffer> <silent> <leader>e :Semshi goto error<CR>

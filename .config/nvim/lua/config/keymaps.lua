@@ -6,7 +6,7 @@ vim.keymap.set("n", "<C-u>", "<C-R>", { desc = "Redo", noremap = true })
 -- " tnoremap <leader>w <Up><C-\><C-n>:sleep 100m<CR>02Wy$<c-w>po<Esc>gp<c-w>w
 -- vnoremap <leader>w y<c-w>wo<Esc>gp<c-w>p
 
-vim.keymap.set("n", "<leader>cc", ":<C-U>cd %:h<cr>:pwd<CR>", { desc = "cd to current's file location" })
+vim.keymap.set("n", "<leader>fd", ":<C-U>cd %:h<cr>:pwd<CR>", { desc = "cd to current's file location" })
 
 vim.keymap.set("c", "<c-n>", "<down>")
 vim.keymap.set("c", "<c-p>", "<up>")
@@ -20,8 +20,8 @@ vim.keymap.set("n", "gP", "P")
 vim.keymap.set({ "x" }, "gp", '"_dP', { desc = "Paste to void reg" })
 
 vim.keymap.set("n", "<c-n>", "*``cgn", { desc = "Replace Next" })
-vim.keymap.set({ "n", "v" }, "<leader>r", ":s//g<Left><Left>", { desc = "Fast replace line" })
-vim.keymap.set("n", "<leader>R", ":%s//g<Left><Left>", { desc = "Fast replace buffer" })
+vim.keymap.set({ "n", "v" }, "<leader>r", ":s/\\v/g<Left><Left>", { desc = "Fast replace line" })
+vim.keymap.set("n", "<leader>R", ":%s/\\v/g<Left><Left>", { desc = "Fast replace buffer" })
 
 vim.keymap.set("n", "<leader><tab>n", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 vim.keymap.set("n", "<leader><tab>p", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
@@ -64,10 +64,38 @@ vim.cmd([[
 vim.cmd([[
   cnoreabbrev W w
   cnoreabbrev Wq wq
+  cnoreabbrev Wa wa
   cnoreabbrev Wqa wqa
   cnoreabbrev Q q
   cnoreabbrev Qa qa
   cnoreabbrev h vert h
+]])
+
+vim.cmd([[
+tnoremap <C-h> <c-\><C-n><C-w>h
+tnoremap <C-j> <c-\><C-n><C-w>j
+tnoremap <C-k> <c-\><C-n><C-w>k
+tnoremap <C-l> <c-\><C-n><C-w>l
+inoremap <C-h> <ESC><C-w>h
+inoremap <C-j> <ESC><C-w>j
+inoremap <C-k> <ESC><C-w>k
+inoremap <C-l> <ESC><C-w>l
+]])
+
+vim.cmd([[
+  function! Do_math()
+      " looks for equals sign, and sends the expression to qalc
+      " appends the result to the line
+      " test expression:
+      " sin(0) +123.3- 2^3+cos(22*pi/180) = 
+      let cursor = getcurpos()
+      let expr = substitute(getline("."), "=.*", "", "")
+      let result = system("qalc -t '" . expr . "'")[:-2]
+      call append(".", result)
+      normal! J
+      call setpos('.', cursor)
+  endfunction
+  nnoremap <silent><leader>v :call Do_math()<CR>
 ]])
 
 -- unimpaired trucho

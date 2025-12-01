@@ -42,15 +42,6 @@ return {
 
   {
     "nvim-telescope/telescope.nvim",
-    -- dependencies = {
-    --   "debugloop/telescope-undo.nvim",
-    -- },
-    -- config = function()
-    --   require("telescope").setup({
-    --     extensions = { undo = {} },
-    --   })
-    --   require("telescope").load_extension("undo")
-    -- end,
     dependencies = {
       {
         "benfowler/telescope-luasnip.nvim",
@@ -74,8 +65,17 @@ return {
         desc = "Switch Buffer",
       },
       { "<leader>o", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
-      -- { "<leader>su", "<cmd>Telescope undo<cr>", desc = "Telescope undo" },
+      { "<leader>sn", "<cmd>Telescope luasnip<cr>", desc = "Snippets" },
     },
+    config = function()
+      require("telescope").setup({
+        defaults = {
+          mappings = {
+            n = { ["x"] = require("telescope.actions").delete_buffer },
+          },
+        },
+      })
+    end,
   },
 
   {
@@ -108,6 +108,12 @@ return {
         "vimdoc",
         "yaml",
       },
+    },
+  },
+  {
+    "folke/which-key.nvim",
+    opts = {
+      preset = "classic",
     },
   },
 }

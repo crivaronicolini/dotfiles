@@ -1,5 +1,6 @@
-nnoremap <silent> <buffer> <CR> :AsyncRun! -silent -save=2 ~/.pandoc/build-pdf.sh <C-r>% %:r.pdf <cr>
-nnoremap <silent> <buffer> <backspace> :AsyncRun! -silent -save=2 ~/.pandoc/build-inline-html.sh <C-r>% %:r.html <cr>
+set formatoptions-=ro
+" nnoremap <silent> <buffer> <CR> :AsyncRun -silent -save=2 ~/.pandoc/build-pdf.sh <C-r>% %:r.pdf <cr>
+" nnoremap <silent> <buffer> <backspace> :AsyncRun -silent -save=2 ~/.pandoc/build-inline-html.sh <C-r>% %:r.html <cr>
 
 " nn <F5> :w <bar>:!pweave -o %:r.md -f markdown %<CR>:!pandoc <C-r> %:r.md --pdf-engine=pdflatex -o  %:p:h/pdf/%:r.pdf<CR>
 " autocmd BufWritePost * normal! mM
@@ -61,22 +62,6 @@ function! s:ChangeItemLevel(dir) abort
     let l:whitespaceAfter = l:grupos[3]
     let l:restOfLine = l:grupos[4]
 
-    " if l:currentLevel >= 0 && l:isItemized==v:false
-    "     if a:dir == 1
-    "         let l:newLine = repeat(' ',l:currentLevel) . '- ' . l:restOfLine
-    "     elseif a:dir == -1
-    "         let l:newLine = l:restOfLine
-    "         echom 'hola'
-    "     endif
-    " elseif l:currentLevel >= 0 && l:isItemized==v:true
-    "     if a:dir == 1
-    "         let l:newLine = repeat(' ',(l:currentLevel+1)*4) . '- ' . l:restOfLine
-    "     elseif a:dir == -1
-    "         let l:newLine = repeat(' ',(l:currentLevel-1)*4) . '- ' . l:restOfLine
-    "     endif
-    " endif
-
-
     if a:dir == 1
         if l:isItemized==v:false
             let l:mod = 0
@@ -110,30 +95,6 @@ function! s:ChangeItemLevel(dir) abort
     let l:pos[2] += l:suma
     call setpos('.', l:pos)
 
-
-
-
-
-"     if l:firstchar == '#'
-"         if a:dir == 1
-"             execute "normal! I#"
-"             let l:pos[2] += 1
-"         elseif a:dir == -1
-"             if l:secondchar == ' '
-"                 execute "normal! 0xx"
-"                 let l:pos[2] -= 2
-"             else
-"                 execute "normal! 0x"
-"                 let l:pos[2] -= 1
-"             endif
-"         endif
-"     else
-"         if a:dir == 1
-"             execute "normal! gI# "
-"             let l:pos[2] += 2
-"         endif
-"     endif
-"     call setpos('.', l:pos)
 endfunction
 
 
@@ -163,12 +124,3 @@ function! s:ChangeSectionLevel(dir) abort
     endif
     call setpos('.', l:pos)
 endfunction
-
-
-" iabbrev <buffer> prob probabilidad
-" iabbrev <buffer> exp experimento
-" iabbrev <buffer> def definición
-" iabbrev <buffer> conj conjunto
-" iabbrev <buffer> sconj subconjunto
-
-

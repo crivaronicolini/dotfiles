@@ -16,6 +16,7 @@ return {
         treesitter_context = true,
         vim_sneak = true,
         which_key = true,
+        rainbow_delimiters = true,
         indent_blankline = {
           enabled = true,
           colored_indent_levels = false,

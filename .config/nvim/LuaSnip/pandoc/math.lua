@@ -24,21 +24,21 @@ local md_math_mode = helpers.markdown_math_mode
 -- Return snippet tables
 return {
 
-  -- -- is md_math_mode
-  -- s(
-  --   { trig = "md", wordTrig = false, regTrig = false, snippetType = "autosnippet" },
-  --   f(function()
-  --     return "md" .. tostring(md_math_mode())
-  --   end)
-  -- ),
+  -- is md_math_mode
+  s(
+    { trig = "md", wordTrig = false, regTrig = false, snippetType = "autosnippet" },
+    f(function()
+      return "md" .. tostring(md_math_mode())
+    end)
+  ),
 
-  -- -- is tex_math_mode
-  -- s(
-  --   { trig = "tt", wordTrig = false, regTrig = false, snippetType = "autosnippet" },
-  --   f(function()
-  --     return "tex" .. tostring(tex_math_mode())
-  --   end)
-  -- ),
+  -- is tex_math_mode
+  s(
+    { trig = "tt", wordTrig = false, regTrig = false, snippetType = "autosnippet" },
+    f(function()
+      return "tex" .. tostring(tex_math_mode())
+    end)
+  ),
 
   -- SUPERSCRIPT: td
   s(
@@ -327,6 +327,31 @@ return {
         return snip.captures[1]
       end),
       d(1, get_visual),
+    }),
+    { condition = tex_math_mode() }
+  ),
+
+  -- TEXY
+  s(
+    { trig = "([^%a])tx", regTrig = true, wordTrig = false, snippetType = "autosnippet" },
+    fmta("<>\\text{<>}", {
+      f(function(_, snip)
+        return snip.captures[1]
+      end),
+      d(1, get_visual),
+    }),
+    { condition = md_math_mode() }
+  ),
+
+  -- SI
+  s(
+    { trig = "([^%\\])sh", wordTrig = false, regTrig = true, snippetType = "autosnippet" },
+    fmta("<>\\SI{<>}{<>}", {
+      f(function(_, snip)
+        return snip.captures[1]
+      end),
+      i(1),
+      i(2),
     }),
     { condition = tex_math_mode() }
   ),

@@ -27,18 +27,13 @@ rm -f "$bookmarks_file"
 
 set bookmarks_fmt '0 "%s" %d "[%d/Fit]"\n'
 
-if set -q _flag_b 
+if set -q _flag_b
     if test -e $_flag_b
         set bookmarks (cat $_flag_b)
     else
         echo "error: bookmarks file doesn't exist"
         exit 1
     end
-end
-
-if test (count $bookmarks) -ne (count $argv)
-    echo "error: mismatched number of files and bookmarks"
-    exit 1
 end
 
 set outfile $_flag_o
@@ -59,10 +54,17 @@ for f in $argv
         set title (basename -s .pdf $f)
     end
 
-    printf "$bookmarks_fmt" "$title" "$page_counter" "$page_counter" >> "$bookmarks_file"
+    printf "$bookmarks_fmt" "$title" "$page_counter" "$page_counter" >>"$bookmarks_file"
     set page_counter (math $page_counter + $num_pages_list[$i])
     set i (math $i + 1)
 end
+
+# if test (count $bookmarks) -ne (count $argv)
+#     echo $bookmarks
+#     echo $argv
+#     echo "error: mismatched number of files and bookmarks"
+#     exit 1
+# end
 
 # Combine PDFs and embed the generated bookmarks file.
 set error (cpdf -merge $argv AND -add-bookmarks $bookmarks_file -o $outfile)

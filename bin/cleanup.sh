@@ -1,17 +1,27 @@
 #!/usr/bin/env sh
 #sacado de https://forum.manjaro.org/t/cleaning-up-and-freeing-disk-space/6703/25?page=2
-pacman -Sc
-find ~/.cache/ -type f -atime +100 -delete
-journalctl --vacuum-size=100M
-flatpak uninstall --unused
-pamac remove --orphans
-pamac clean --build-files
+#https://wiki.manjaro.org/index.php/Pacman_Overview#Cleaning_the_Cache
 
-#Removes old revisions of snaps
-#CLOSE ALL SNAPS BEFORE RUNNING THIS
-#sacado de https://www.debugpoint.com/2021/03/clean-up-snap/
-set -eu
-LANG=en_US.UTF-8 snap list --all | awk '/disabled/{print $1, $3}' |
-while read snapname revision; do
-    snap remove "$snapname" --revision="$revision"
-done
+echo pacman -Sc
+pacman -Sc
+
+echo paccache -rvk0
+paccache -rvk0
+
+echo find ~/.cache/ -type f -atime +100 -delete
+find ~/.cache/ -type f -atime +100 -delete
+
+echo journalctl --vacuum-size=20M
+journalctl --vacuum-size=20M
+
+echo flatpak uninstall --unused
+flatpak uninstall --unused
+
+echo pamac clean --keep 0
+pamac clean --keep 0
+
+echo pamac remove --orphans
+pamac remove --orphans
+
+echo pamac clean --build-files
+pamac clean --build-files
