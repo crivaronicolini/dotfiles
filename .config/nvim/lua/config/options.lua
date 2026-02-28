@@ -42,3 +42,5 @@ else
   vim.o.background = "dark"
 end
 vim.g.snacks_animate = false
+
+vim.g.lazyvim_python_lsp = "ty"

@@ -1,8 +1,12 @@
 return {
   {
+    "HiPhish/rainbow-delimiters.nvim",
+  },
+
+  {
     "mbbill/undotree",
     keys = {
-      { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "Toggle undotree" },
+      { "<leader>uu", "<cmd>UndotreeToggle<cr>", desc = "Toggle undotree" },
     },
   },
 
@@ -22,9 +26,9 @@ return {
   {
     "folke/zen-mode.nvim",
     opts = { backdrop = 1, twilight = { enabled = true } },
-    keys = { "<F7>", "<cmd>ZenMode<cr>" },
+    keys = { "<leader>uz", "<cmd>ZenMode<cr>" },
     config = function()
-      vim.keymap.set("n", "<F7>", ":ZenMode<CR>")
+      vim.keymap.set("n", "<leader>uz", ":ZenMode<CR>")
     end,
   },
 
@@ -79,41 +83,31 @@ return {
   },
 
   {
-    "nvim-treesitter/nvim-treesitter",
-    dependencies = {
-      {
-        "nvim-treesitter/nvim-treesitter-context",
-        opts = { mode = "topline" },
-      },
-    },
-    context_commentstring = {
-      enable = true,
-    },
+    "folke/which-key.nvim",
     opts = {
-      ensure_installed = {
-        "bash",
-        "c",
-        "html",
-        "javascript",
-        "json",
-        "lua",
-        "luadoc",
-        "luap",
-        "markdown",
-        "markdown_inline",
-        "python",
-        "query",
-        "regex",
-        "vim",
-        "vimdoc",
-        "yaml",
+      preset = "classic",
+      picker = {
+        hidden = true,
+        ignored = true,
       },
     },
   },
   {
-    "folke/which-key.nvim",
+    "folke/snacks.nvim",
     opts = {
-      preset = "classic",
+      picker = {
+        sources = {
+          files = {
+            hidden = true,
+            ignored = true,
+            exclude = {
+              "**/.git/*",
+              "**/.venv/*",
+              "**/node_modules/*",
+            },
+          },
+        },
+      },
     },
   },
 }

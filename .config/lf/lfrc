@@ -5,14 +5,14 @@ set shellopts '-eu'
 set ifs "\n"
 set scrolloff 10
 
-cmd open ${{
-    case $(mimetype -b $f) in
-        text/csv) sc-im $fx;;
-        text/tab-separated-values) sc-im $fx;;
-        text/*) nvim $fx;;
-        *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
-    esac
-}}
+# cmd open ${{
+#     case $(file --mime-type -b $f) in
+#         text/csv) sc-im $fx;;
+#         text/tab-separated-values) sc-im $fx;;
+#         text/*) nvim $fx;;
+#         *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
+#     esac
+# }}
 
 
 cmd trash %set -f; gio trash $fx; echo $(basename -a $fx) trashed
@@ -151,8 +151,8 @@ map b $man $f
 map x trash
 map X trash-restore
 map <C-X> !$f
-map o !mimeopen $f
-map O !mimeopen --ask $f
+map o !xdg-open $f
+map O !xdg-open --ask $f
 map go $zathura $f &
 map a push :mkdir<space>
 map A newfolder

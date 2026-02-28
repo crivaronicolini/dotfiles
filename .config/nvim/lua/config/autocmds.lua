@@ -32,7 +32,7 @@ vim.api.nvim_create_autocmd({ "BufModifiedSet" }, {
 })
 
 vim.filetype.add({
-  extension = { md = "pandoc", tex = "latex", frac = "glsl" },
+  extension = { tex = "latex", frac = "glsl" },
 })
 
 vim.api.nvim_create_autocmd("BufReadPost", {

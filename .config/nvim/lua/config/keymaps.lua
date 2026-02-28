@@ -29,6 +29,8 @@ vim.keymap.set("n", "<leader><tab>q", "<cmd>tabclose<cr>", { desc = "Close Tab" 
 
 vim.keymap.set({ "n", "x", "o" }, "n", "nzz", { desc = "Next search result" })
 
+vim.keymap.set({ "n" }, "<space>gg", "<cmd>vert Git<cr>", { desc = "Git Fugitive" })
+
 vim.cmd([[
     unmap H
     unmap L

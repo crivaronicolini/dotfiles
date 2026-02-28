@@ -15,26 +15,6 @@ return {
   },
 
   {
-    "numToStr/Comment.nvim",
-    event = "VeryLazy",
-    dependencies = {
-      "JoosepAlviste/nvim-ts-context-commentstring",
-    },
-    config = function()
-      require("Comment").setup()
-      local ft = require("Comment.ft")
-      ft.pandoc = { "<!--%s-->", "<!--%s-->" }
-      ft.astro = { "<!--%s-->", "<!--%s-->" }
-    end,
-  },
-
-  {
-    "nvim-treesitter/playground",
-    cmd = "TSPlaygroundToggle",
-    dependencies = "nvim-treesitter/nvim-treesitter",
-  },
-
-  {
     "Wansmer/treesj",
     keys = { "<space>m", "<space>j", "<space>J" },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
@@ -47,7 +27,12 @@ return {
       formatters_by_ft = {
         lua = { "stylua" },
         fish = { "fish_indent" },
-        python = { "ruff_format" },
+        python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
+        html = { "prettierd" },
+        js = { "prettierd" },
+        ts = { "tsgo", "prettierd" },
+        typescript = { "tsgo", "prettierd" },
+        go = { "gofmt" },
       },
     },
   },

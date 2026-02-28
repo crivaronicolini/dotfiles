@@ -4,8 +4,6 @@
 " let g:semshi#error_sign_delay = 2
 " let g:semshi#excluded_hl_groups = ['local']
 
-echo("hola")
-
 let g:neoterm_shell = '/usr/bin/fish'
 let g:neoterm_repl_python = ['source .venv/bin/activate.fish', 'clear', 'ipython']
 " let g:neoterm_direct_open_repl = 1
@@ -37,7 +35,7 @@ nnoremap <buffer> <F5> :TREPLSendFile<CR>
 " nnoremap <buffer> <leader>W vap:TREPLSendSelection<CR>``
 nnoremap <buffer> <silent> <leader>W :call Send_par()<CR>
 " nnoremap <buffer> <Leader>v :call Go_pdb()<cr>
-nnoremap <buffer> <silent> <CR> :AsyncRun -save=1 python %<CR>
+nnoremap <buffer> <silent> <CR> :AsyncRun -save=1 uv run %<CR>
 nnoremap <buffer> <silent> <F17> :AsyncStop<CR>
 " nnoremap <buffer> <leader>m :call Send_cell()<CR>
 

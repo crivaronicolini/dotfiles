@@ -53,3 +53,10 @@ fzf_key_bindings
 set PATH $PNPM_HOME /home/marco/bin/ /home/marco/.local/bin /usr/local/bin /usr/bin /var/lib/snapd/snap/bin /usr/local/sbin /var/lib/flatpak/exports/bin /usr/bin/site_perl /usr/bin/vendor_perl /usr/bin/core_perl /home/marco/.platformio/penv/bin /home/marco/.npm-packages/bin /home/marco/.cargo/bin /home/marco/.juliaup/bin /home/marco/.cabal/bin/ /home/marco/go/bin/ /home/marco/.opencode/bin/
 
 zoxide init fish | source
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
+
+# Amp CLI
+export PATH="/home/marco/.amp/bin:$PATH"
