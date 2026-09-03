@@ -2,7 +2,7 @@ vim.o.clipboard = ""
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.spellsuggest = "7"
-vim.opt.spelllang = { "es", "en" }
+vim.opt.spelllang = { "en" }
 vim.o.cul = true
 vim.o.confirm = true
 vim.o.wrap = true
@@ -15,6 +15,8 @@ vim.o.shiftwidth = 2
 vim.o.expandtab = true
 vim.o.scrolloff = 12
 vim.o.mouse = "a"
+vim.o.mousescroll = "ver:4,hor:6"
+vim.o.smoothscroll = true
 vim.o.completeopt = "menuone,noselect"
 vim.opt.wildmode = { "longest", "full" }
 vim.o.virtualedit = "block"
@@ -34,13 +36,9 @@ vim.o.timeout = true
 vim.o.timeoutlen = 300
 vim.o.termguicolors = true
 
-local time = os.date("*t")
-if 8 <= time.hour and time.hour < 17 then
-  print(time.hour)
-  vim.o.background = "light"
-else
-  vim.o.background = "dark"
-end
 vim.g.snacks_animate = false
 
 vim.g.lazyvim_python_lsp = "ty"
+
+vim.g.sidekick_nes = false
+vim.g.db_ui_auto_execute_table_helpers = 1

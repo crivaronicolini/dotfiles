@@ -5,14 +5,14 @@ set shellopts '-eu'
 set ifs "\n"
 set scrolloff 10
 
-# cmd open ${{
-#     case $(file --mime-type -b $f) in
-#         text/csv) sc-im $fx;;
-#         text/tab-separated-values) sc-im $fx;;
-#         text/*) nvim $fx;;
-#         *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
-#     esac
-# }}
+cmd open ${{
+    case $(file --mime-type -b $f) in
+        text/csv) if command -v sc-im >/dev/null 2>&1; then sc-im $fx; else nvim $fx; fi;;
+        text/tab-separated-values) if command -v sc-im >/dev/null 2>&1; then sc-im $fx; else nvim $fx; fi;;
+        text/*) nvim $fx;;
+        *) for f in $fx; do $OPENER $f > /dev/null 2> /dev/null & done;;
+    esac
+}}
 
 
 cmd trash %set -f; gio trash $fx; echo $(basename -a $fx) trashed
@@ -132,6 +132,20 @@ cmd drag-drop &{{
     dragon-drop --all --and-exit $fx
 }}
 
+# Copy full path using wl-copy
+cmd copy-path %{{
+    set -f
+    paths=$(mktemp)
+    for file in $fx; do
+        realpath -- "$file" >> "$paths"
+    done
+    wl-copy < "$paths"
+    count=$(wc -l < "$paths")
+    rm "$paths"
+    lf -remote "send $id echo '$count path(s) copied!'"
+}}
+map <a-y> copy-path
+
 map st :set sortby time; set info time; set reverse!; top -- [];
 
 map <a-f> $lf -remote "send $id select '$(fzf)'"
@@ -152,7 +166,6 @@ map x trash
 map X trash-restore
 map <C-X> !$f
 map o !xdg-open $f
-map O !xdg-open --ask $f
 map go $zathura $f &
 map a push :mkdir<space>
 map A newfolder
@@ -167,7 +180,6 @@ map L push hjl
 map ? doc
 map <esc> quit
 map q quit
-# set previewer ~/.config/lf/pv.sh
 map i $ctpv $f | less -R
 
 

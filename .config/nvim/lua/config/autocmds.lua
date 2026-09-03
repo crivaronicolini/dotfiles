@@ -2,6 +2,17 @@ local function augroup(name)
   return vim.api.nvim_create_augroup("initlua_" .. name, { clear = true })
 end
 
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   group = augroup("format_on_save"),
+--   pattern = { "*.ts", "*.tsx", "*.js", "*.jsx" },
+--   callback = function(args)
+--     require("conform").format({
+--       bufnr = args.buf,
+--       async = false,
+--       timeout_ms = 1000,
+--     })
+--   end,
+
 vim.api.nvim_create_autocmd("BufReadPost", {
   group = augroup("last_loc"),
   callback = function()
@@ -42,6 +53,23 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     vim.opt_local.wrap = true
   end,
 })
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  group = augroup("env_filetype"),
+  pattern = { ".env", ".env.*", "*.env", "*.env.*" },
+  callback = function(args)
+    vim.bo[args.buf].filetype = "config"
+  end,
+})
+
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "json",
+--   callback = function()
+--     vim.wo.foldmethod = "fold-expr"
+--     vim.wo.foldenable = true
+--     vim.wo.foldlevelstart = 1
+--   end
+-- })
 
 -- require("conform").setup({
 --   format_on_save = function(bufnr)

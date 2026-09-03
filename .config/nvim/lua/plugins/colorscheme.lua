@@ -1,7 +1,7 @@
 return {
   {
     "catppuccin/nvim",
-    name = "catppuccin",
+    name = "catppuccin-nvim",
     priority = 1000,
     opts = {
       background = { dark = "mocha", light = "frappe" },
@@ -9,6 +9,7 @@ return {
         cmp = true,
         gitsigns = true,
         hop = true,
+        mini = true,
         leap = true,
         markdown = true,
         telescope = true,
@@ -24,15 +25,14 @@ return {
       },
     },
     config = function()
-      vim.cmd.colorscheme("catppuccin-mocha")
+      vim.cmd.colorscheme("catppuccin-nvim")
     end,
   },
 
-  -- Configure LazyVim to load gruvbox
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin",
+      colorscheme = "catppuccin-nvim",
     },
   },
 }

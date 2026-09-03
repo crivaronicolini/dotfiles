@@ -1,0 +1,21 @@
+theme = Catppuccin Mocha
+command = fish
+font-size = 10
+
+link-previews=true
+gtk-titlebar-style = tabs
+gtk-wide-tabs=true
+#window-decoration=none
+keybind=alt+w=close_surface
+keybind=alt+t=new_tab
+keybind=ctrl+alt+v=new_split:right
+keybind=ctrl+alt+s=new_split:down
+keybind=ctrl+alt+k=goto_split:up
+keybind=ctrl+alt+j=goto_split:down
+keybind=ctrl+alt+h=goto_split:left
+keybind=ctrl+alt+l=goto_split:right
+keybind=alt+digit_1=previous_tab
+keybind=alt+digit_2=next_tab
+unfocused-split-opacity=0.9
+window-save-state = always
+mouse-scroll-multiplier = precision:1,discrete:2
